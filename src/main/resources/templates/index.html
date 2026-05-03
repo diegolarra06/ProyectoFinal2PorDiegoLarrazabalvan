@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopción de Animales</title>
+    <link rel="stylesheet" th:href="@{/css/primaria.css}">
+    <link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}">
+</head>
+<body>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Adopción De Animales</h1>
+            <p>¡Haz una diferencia en la vida de un animal hoy mismo!</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="menu">
+            <button class="menu-boton">Menú</button>
+            <div class="menu-desplegable">
+                <a th:href="@{/alta}">Página Alta</a>
+                <a th:href="@{/noticias}">Noticias</a>
+                <a href="https://www.zooplus.es/?utm_source=google&utm_medium=google_nonbrand&utm_campaign=91388351&utm_term=tienda%20mascotas&utm_content=152481091638&utm_id=91388351_152481091638&mkt_source=16243&gad_source=1&gclid=Cj0KCQiAy8K8BhCZARIsAKJ8sfSAPXlfct5PVQa8XnrFt0PUjq0A-2BUe1HMUsXmu5-YzuDOhpzSkEkaAoulEALw_wcB" target="_blank">Artículos Para Animales</a>
+                <a href="https://www.seguroparaperros.com/blog/como-adoptar-perro-espana" target="_blank">Cómo Adoptar</a>
+            </div>
+        </div>
+        <h1 class="verde">Adopción De Animales</h1>
+    </header>
+
+    <div class="contenedor">
+
+        <aside class="barra-izquierda">
+            <h2>Publicidad</h2>
+            <a href="https://www.miscota.es/perros/musqui/pelota-de-tenis-azul-para-perros" target="_blank">
+                <img th:src="@{/img/pelota.jpeg}" alt="Anuncio 1">
+            </a>
+            <h4>¡Pelota!</h4>
+            <p>Llévatela con un solo clic: <a href="https://www.miscota.es/perros/musqui/pelota-de-tenis-azul-para-perros" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://www.amazon.es/golosinas-perros/s?k=golosinas+perros" target="_blank">
+                <img th:src="@{/img/chuche.jpeg}" alt="Anuncio 2">
+            </a>
+            <h4>¡Chuches Para Perros!</h4>
+            <p>El mejor alimento para el perro: <a href="https://www.amazon.es/golosinas-perros/s?k=golosinas+perros" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://collarofsweden.com/es-sp/products/cuenco-perro-verde?currency=EUR&variant=47519929074012" target="_blank">
+                <img th:src="@{/img/cuenco.webp}" alt="Anuncio 3">
+            </a>
+            <h4>¡Cuenco De Perro!</h4>
+            <p>Llévatelos cuanto antes: <a href="https://collarofsweden.com/es-sp/products/cuenco-perro-verde?currency=EUR&variant=47519929074012" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://www.amazon.es/s?k=juguetes+para+perros" target="_blank">
+                <img th:src="@{/img/juguetes para perros.jpeg}" alt="Anuncio 4">
+            </a>
+            <h4>¡Juguetes Para Perros!</h4>
+            <p>Llévatelos a su mascota: <a href="https://www.amazon.es/s?k=juguetes+para+perros" target="_blank">Click aquí</a></p>
+        </aside>
+
+        <main class="contenedor-central">
+            <h2>¡Adopta Y Cambia Una Vida!</h2>
+            <p>Adoptar un animal no solo cambia la vida del animal, sino también la tuya. Miles de perros, gatos y otros animales esperan encontrar un hogar amoroso. Infórmate sobre el proceso y da el primer paso para ser un héroe para ellos.</p>
+
+            <h2>Beneficios De La Adopción</h2>
+            <ul>
+                <li>Reduces el número de animales en refugios.</li>
+                <li>Recibes un compañero leal y agradecido.</li>
+                <li>Contribuyes a disminuir la cría irresponsable de mascotas.</li>
+                <li>Ahorras dinero, ya que las mascotas adoptadas suelen estar vacunadas y esterilizadas.</li>
+            </ul>
+
+            <h2>El Antes Y El Después</h2>
+            <div class="galeria">
+                <div class="contenedor-imagenes" id="Feliz">
+                    <h4>Antes De Ser Adoptado</h4>
+                    <img th:src="@{/img/perrera.jpg}" alt="perrera">
+                </div>
+                <div class="contenedor-imagenes" id="Adoptado">
+                    <h4>Una Vez Adoptado</h4>
+                    <img th:src="@{/img/adoptado.jpeg}" alt="Gato adoptado">
+                </div>
+                <div class="contenedor-imagenes" id="Familia">
+                    <h4>Familia Del Adoptado</h4>
+                    <img th:src="@{/img/familia.jpeg}" alt="Familia con mascota">
+                </div>
+            </div>
+
+            <br><br>
+            <hr>
+            <br><br>
+
+            <input type="checkbox" class="mostrarTabla" id="mostrarTabla">
+            <label class="boton" for="mostrarTabla">Mostrar Testimonios</label>
+
+            <table class="tabla-testimonios">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Testimonio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Laura P</td>
+                        <td>"Me sentía sola, pero desde que conocí a Rayo todo cambió en mi vida. ¡Ya no me puedo separar de él!"</td>
+                    </tr>
+                    <tr>
+                        <td>Miguel H</td>
+                        <td>"Un buen regalo, mi hija quería un animal. ¡Ahora no para de jugar con él!"</td>
+                    </tr>
+                    <tr>
+                        <td>Ana G</td>
+                        <td>"Me recomendó el médico adoptar un animal para apoyo emocional. ¡Funcionó!"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>¿Cómo Adoptar?</h2>
+            <p>El proceso de adopción es sencillo. Aquí te explicamos los pasos básicos:</p>
+            <ol>
+                <li>Visita tu refugio local o consulta las páginas web de organizaciones de adopción.</li>
+                <li>Revisa los perfiles de los animales disponibles para adopción.</li>
+                <li>Realiza una entrevista o solicitud para asegurarte de que el animal se adapta a tu hogar.</li>
+                <li>Una vez aprobada la adopción, lleva a tu nuevo amigo a casa.</li>
+            </ol>
+
+            <br><br>
+            <hr>
+            <br><br>
+
+            <h2>Videos Sobre Adopción</h2>
+            <p>Aquí tienes algunos videos inspiradores que te ayudarán a conocer más sobre la adopción de animales:</p>
+
+            <div class="seccion-de-video">
+                <div class="video-galeria">
+                    <div class="video-item">
+                        <h3>El Impacto De Adoptar</h3>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/S2HjYdB1neY?si=7auLMjl32dzOGpaR" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-item">
+                        <h3>Historias de adopción</h3>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/oqi1ZJWbW_Q?si=YRP3w_jBvAShZUD3" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="barra-derecha">
+            <h2>Publicidad</h2>
+            <a href="https://www.amazon.es/Rawhui-Lanzador-Autom%C3%A1tico-Interactiva-Lanzadora/dp/B0D1YF4SN9" target="_blank">
+                <img th:src="@{/img/tirador.jpeg}" alt="Anuncio 5">
+            </a>
+            <h4>¡Tirador Automático!</h4>
+            <p>Llévatelo así de fácil: <a href="https://www.amazon.es/Rawhui-Lanzador-Autom%C3%A1tico-Interactiva-Lanzadora/dp/B0D1YF4SN9" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://mascoboutique.com/mordedor-cuerda-para-perro-serpiente.html" target="_blank">
+                <img th:src="@{/img/mordedor.jpeg}" alt="Anuncio 6">
+            </a>
+            <h4>¡Mordedor!</h4>
+            <p>Llévatelo con ofertas: <a href="https://mascoboutique.com/mordedor-cuerda-para-perro-serpiente.html" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://es.funnyfuzzy.com/products/dog-bed-fuzzy-round" target="_blank">
+                <img th:src="@{/img/cama.webp}" alt="Anuncio 7">
+            </a>
+            <h4>¡Cama!</h4>
+            <p>Llévatela 2x1: <a href="https://es.funnyfuzzy.com/products/dog-bed-fuzzy-round" target="_blank">Click aquí</a></p>
+
+            <h2>Publicidad</h2>
+            <a href="https://www.tiendanimal.es/perros/pienso-para-perros/pienso-royal-canin/" target="_blank">
+                <img th:src="@{/img/pienso.jpeg}" alt="Anuncio 8">
+            </a>
+            <h4>¡Piensos!</h4>
+            <p>Llévatelos con un regalo extra: <a href="https://www.tiendanimal.es/perros/pienso-para-perros/pienso-royal-canin/" target="_blank">Click aquí</a></p>
+        </aside>
+
+    </div>
+
+    <div class="contacto">
+        📞 Teléfono: <a href="tel:+123456789">+34 234 567 89</a> | ✉️ Correo: <a href="mailto:ivansanchez@gmail.com">ivansanchez@gmail.com</a>
+    </div>
+</body>
+</html>

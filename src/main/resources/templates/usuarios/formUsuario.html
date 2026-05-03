@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario usuario</title>
+    <link rel="stylesheet" th:href="@{/css/adopta.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">Adopta<span>UnCompañero</span></a>
+        <nav>
+            <a th:href="@{/usuarios}">Volver</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="panel form-panel">
+            <h1 th:text="${modo == 'insertar'} ? 'Insertar usuario' : 'Actualizar usuario'"></h1>
+
+            <form th:action="${modo == 'insertar'} ? @{/usuarios/insertar} : @{'/usuarios/actualizar/' + ${usuario.idUsuario}}" th:object="${usuario}" method="post" class="form-grid">
+                <input type="text" th:field="*{nombre}" placeholder="Nombre" required>
+                <input type="email" th:field="*{email}" placeholder="Email" required>
+                <input type="text" th:field="*{password}" placeholder="Password" required>
+                <input type="text" th:field="*{telefono}" placeholder="Teléfono">
+                <input type="text" th:field="*{direccion}" placeholder="Dirección">
+                <select th:field="*{rol}">
+                    <option value="CLIENTE">CLIENTE</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

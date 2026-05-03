@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel admin</title>
+    <link rel="stylesheet" th:href="@{/css/adopta.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">Adopta<span>UnCompañero</span></a>
+        <nav>
+            <a th:href="@{/animales}">Animales</a>
+            <a th:href="@{/usuarios}">Usuarios</a>
+            <a th:href="@{/solicitudes}">Solicitudes</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="heading-row">
+            <div>
+                <span class="pill">Panel de administración</span>
+                <h1>Estadísticas generales</h1>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total animales</span>
+                <strong th:text="${estadisticas.totalAnimales}"></strong>
+            </div>
+            <div class="stat-card">
+                <span>Disponibles</span>
+                <strong th:text="${estadisticas.disponibles}"></strong>
+            </div>
+            <div class="stat-card">
+                <span>Reservados</span>
+                <strong th:text="${estadisticas.reservados}"></strong>
+            </div>
+            <div class="stat-card">
+                <span>Adoptados</span>
+                <strong th:text="${estadisticas.adoptados}"></strong>
+            </div>
+            <div class="stat-card">
+                <span>Total usuarios</span>
+                <strong th:text="${estadisticas.totalUsuarios}"></strong>
+            </div>
+            <div class="stat-card">
+                <span>Total solicitudes</span>
+                <strong th:text="${estadisticas.totalSolicitudes}"></strong>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

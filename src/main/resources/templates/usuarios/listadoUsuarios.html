@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/adopta.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">Adopta<span>UnCompañero</span></a>
+        <nav>
+            <a th:href="@{/animales}">Animales</a>
+            <a th:href="@{/solicitudes}">Solicitudes</a>
+            <a th:href="@{/admin}">Admin</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="heading-row">
+            <div>
+                <span class="pill">Módulo usuarios</span>
+                <h1>Listado de usuarios</h1>
+            </div>
+            <a class="btn btn-primary" th:href="@{/usuarios/insertar}">Nuevo usuario</a>
+        </div>
+
+        <div class="panel">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.idUsuario}"></td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.telefono}"></td>
+                        <td><span class="badge" th:text="${usuario.rol}"></span></td>
+                        <td class="actions">
+                            <a class="btn btn-mini" th:href="@{'/usuarios/actualizar/' + ${usuario.idUsuario}}">Editar</a>
+                            <a class="btn btn-danger btn-mini" th:href="@{'/usuarios/borrar/' + ${usuario.idUsuario}}">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

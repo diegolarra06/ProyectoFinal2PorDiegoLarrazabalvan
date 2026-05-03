@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario animal</title>
+    <link rel="stylesheet" th:href="@{/css/adopta.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">Adopta<span>UnCompañero</span></a>
+        <nav>
+            <a th:href="@{/animales}">Volver</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="panel form-panel">
+            <h1 th:text="${modo == 'insertar'} ? 'Insertar animal' : 'Actualizar animal'"></h1>
+
+            <form th:action="${modo == 'insertar'} ? @{/animales/insertar} : @{'/animales/actualizar/' + ${animal.idAnimal}}" th:object="${animal}" method="post" class="form-grid">
+                <input type="text" th:field="*{nombre}" placeholder="Nombre" required>
+                <input type="text" th:field="*{especie}" placeholder="Especie" required>
+                <input type="number" th:field="*{edad}" placeholder="Edad">
+                <input type="text" th:field="*{tamano}" placeholder="Tamaño">
+                <input type="text" th:field="*{personalidad}" placeholder="Personalidad">
+                <input type="text" th:field="*{necesidadesEspeciales}" placeholder="Necesidades especiales">
+                <input type="text" th:field="*{estadoSanitario}" placeholder="Estado sanitario">
+                <select th:field="*{estado}">
+                    <option value="DISPONIBLE">DISPONIBLE</option>
+                    <option value="RESERVADO">RESERVADO</option>
+                    <option value="ADOPTADO">ADOPTADO</option>
+                </select>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

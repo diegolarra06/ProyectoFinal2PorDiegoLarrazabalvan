@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopción De Animales</title>
+    <link rel="stylesheet" th:href="@{/css/primaria.css}">
+    <link rel="stylesheet" th:href="@{/css/paginaNoticia.css}">
+</head>
+<body>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Adopción De Animales</h1>
+            <p>¡Haz una diferencia en la vida de un animal hoy mismo!</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="menu">
+            <a class="menu-boton" th:href="@{/}">Página Principal</a>
+        </div>
+        <h1 class="titulo1">Adopción De Animales</h1>
+    </header>
+
+    <main class="contenido-central">
+        <h1 class="noticias">ÚLTIMAS NOTICIAS</h1>
+
+        <br>
+
+        <h2>¡Cómo Le Cambió La Vida A Un Perro De La Perrera!</h2>
+        <p>Adoptar un animal no solo cambia la vida del animal, sino también la tuya.</p>
+
+        <div class="galeria">
+            <div class="imagen-contenedor" id="Antes">
+                <h4>Antes De Ser Adoptado</h4>
+                <img th:src="@{/img/perrera.jpg}" alt="perrera">
+            </div>
+            <div class="imagen-contenedor" id="Adoptado">
+                <h4>Una Vez Adoptado</h4>
+                <img th:src="@{/img/adoptado.jpeg}" alt="Gato adoptado">
+            </div>
+            <div class="imagen-contenedor" id="Familia">
+                <h4>Familia Del Animal</h4>
+                <img th:src="@{/img/familia.jpeg}" alt="Familia con mascota">
+            </div>
+        </div>
+
+        <br>
+        <h2>¿Tenía Esta Adopción Beneficios?</h2>
+        <ul>
+            <li>El perro fue feliz.</li>
+            <li>Recibió un compañero leal y agradecido.</li>
+            <li>La persona que le adoptó fue feliz con su nuevo compañero.</li>
+        </ul>
+    </main>
+
+    <div class="contacto">
+        📞 Teléfono: <a href="tel:+123456789">+34 234 567 89</a> | ✉️ Correo: <a href="mailto:ivansanchez@gmail.com">ivansanchez@gmail.com</a>
+    </div>
+</body>
+</html>

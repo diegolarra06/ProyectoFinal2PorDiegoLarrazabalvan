@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    background: url('/img/Portada.jpeg') no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px 30px;
+    border-radius: 10px;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.hero-content h1 {
+    font-size: 5rem;
+    margin-bottom: 1px;
+    transition: font-size 2.3s ease, padding 2.3s ease;
+}
+
+.hero-content.small-title h1 {
+    font-size: 1rem;
+    padding: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header .menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.menu-boton {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.menu-desplegable {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 200px;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-desplegable a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.menu-desplegable a:hover {
+    background-color: #f0f0f0;
+}
+
+header .menu:hover .menu-desplegable {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.contenedor {
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 5px;
+}
+
+.barra-izquierda,
+.barra-derecha {
+    width: 15%;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+}
+
+.barra-izquierda img,
+.barra-derecha img {
+    width: 100%;
+    margin-top: 10px;
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.contacto {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 1rem;
+    z-index: 1000;
+}
+
+.contacto a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}

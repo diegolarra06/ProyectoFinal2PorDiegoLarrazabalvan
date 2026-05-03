@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Animales</title>
+    <link rel="stylesheet" th:href="@{/css/adopta.css}">
+</head>
+<body>
+<header class="topbar">
+    <div class="container nav">
+        <a class="brand" th:href="@{/}">Adopta<span>UnCompañero</span></a>
+        <nav>
+            <a th:href="@{/usuarios}">Usuarios</a>
+            <a th:href="@{/solicitudes}">Solicitudes</a>
+            <a th:href="@{/admin}">Admin</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="heading-row">
+            <div>
+                <span class="pill">Módulo animales</span>
+                <h1>Listado de animales</h1>
+            </div>
+            <a class="btn btn-primary" th:href="@{/animales/insertar}">Nuevo animal</a>
+        </div>
+
+        <div class="panel">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Especie</th>
+                        <th>Edad</th>
+                        <th>Tamaño</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="animal : ${animales}">
+                        <td th:text="${animal.idAnimal}"></td>
+                        <td th:text="${animal.nombre}"></td>
+                        <td th:text="${animal.especie}"></td>
+                        <td th:text="${animal.edad}"></td>
+                        <td th:text="${animal.tamano}"></td>
+                        <td><span class="badge" th:text="${animal.estado}"></span></td>
+                        <td class="actions">
+                            <a class="btn btn-mini" th:href="@{'/animales/actualizar/' + ${animal.idAnimal}}">Editar</a>
+                            <a class="btn btn-danger btn-mini" th:href="@{'/animales/borrar/' + ${animal.idAnimal}}">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>
