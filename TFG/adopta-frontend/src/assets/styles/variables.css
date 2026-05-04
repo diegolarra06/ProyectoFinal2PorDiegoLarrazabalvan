@@ -1,0 +1,24 @@
+/* =============================================================
+   VARIABLES GLOBALES DE ESTILO
+   Centralizadas para mantener consistencia en toda la app
+   ============================================================= */
+:root {
+  --color-primario: #4CAF50;
+  --color-primario-oscuro: #388E3C;
+  --color-secundario: #333;
+  --color-fondo: #f9f9f9;
+  --color-blanco: #ffffff;
+  --color-gris-claro: #f0f0f0;
+  --color-gris-medio: #ccc;
+  --color-texto: #333;
+  --color-error: #d32f2f;
+  --color-success: #2e7d32;
+  --color-warning: #f57c00;
+  --color-info: #1976d2;
+
+  --sombra-suave: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --sombra-media: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  --radius: 8px;
+  --transition: all 0.3s ease;
+}

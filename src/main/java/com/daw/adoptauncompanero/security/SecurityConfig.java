@@ -62,12 +62,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
+            .cors(cors -> {})  
             .authorizeHttpRequests(auth -> auth
 
                 // ---------- URLs públicas (cliente no registrado, 2.2.1) ----------
                 .requestMatchers(
                         "/", "/home", "/login", "/registro", "/accesoDenegado",
-                        "/css/**", "/js/**", "/img/**", "/uploads/**"
+                        "/css/**", "/js/**", "/img/**", "/uploads/**",
+                        "/api/animales/**", "/api/me"
                 ).permitAll()
 
                 // Catálogo y fichas son públicos (2.3.1, 2.3.2)
@@ -94,7 +96,7 @@ public class SecurityConfig {
                 .requestMatchers("/solicitudes/iniciar/**",
                                  "/solicitudes/misSolicitudes/**",
                                  "/solicitudes/cancelar/**").hasAnyAuthority("CLIENTE", "ADMIN")
-
+                .requestMatchers("/api/**").authenticated()
                 // Resto requiere estar autenticado
                 .anyRequest().authenticated()
             )
