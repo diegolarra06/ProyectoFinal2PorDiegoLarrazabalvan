@@ -141,8 +141,8 @@ a:hover { text-decoration: underline; }
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
+/*@media (max-width: 900px) {
   .contenedor { flex-direction: column; padding: 10px; }
   .hero-content h1 { font-size: 2rem; }
   .hero { height: 40vh; min-height: 300px; }
-}
+}*/

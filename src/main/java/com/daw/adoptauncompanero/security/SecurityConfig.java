@@ -3,6 +3,7 @@ package com.daw.adoptauncompanero.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -11,16 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 // =============================================================
 // PDF 5 - 2.5. Configuración de Spring Security
-// Reglas:
-//  - Cliente NO registrado (2.2.1): home, catálogo, ficha animal,
-//    info adopción, registro, login. Sin más permisos.
-//  - Cliente REGISTRADO / CLIENTE (2.2.3): área personal, favoritos,
-//    solicitudes propias.
-//  - ADMIN (2.2.4): gestión completa (animales, usuarios, solicitudes,
-//    citas, estadísticas).
+// Adaptado para SPA Vue: el login devuelve 200 OK (no redirige)
+// y el access denied devuelve 401/403 (no redirige a HTML).
 // =============================================================
 @Configuration
 @EnableWebSecurity
@@ -29,19 +26,11 @@ public class SecurityConfig {
     @Autowired
     private DetallesUsuarioService userDetailsService;
 
-    /**
-     * BCrypt es el encoder recomendado por Spring (PDF 5).
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Cómo se autentican los usuarios (BBDD + BCrypt).
-     * IMPORTANTE: en Spring Security 6.3+ se usa el constructor vacío
-     * y se inyecta el UserDetailsService con el setter.
-     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -55,65 +44,76 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    /**
-     * Reglas de autorización por URL.
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-            .cors(cors -> {})  
+        http
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
 
-                // ---------- URLs públicas (cliente no registrado, 2.2.1) ----------
+                // ---------- URLs públicas ----------
                 .requestMatchers(
                         "/", "/home", "/login", "/registro", "/accesoDenegado",
                         "/css/**", "/js/**", "/img/**", "/uploads/**",
-                        "/api/animales/**", "/api/me"
+                        "/api/animales/**", "/api/me", "/api/registro"
                 ).permitAll()
 
-                // Catálogo y fichas son públicos (2.3.1, 2.3.2)
-                .requestMatchers("/animales/catalogo", "/animales/ficha/**").permitAll()
-
-                // API REST de animales pública (paginación PDF 6.3)
-                .requestMatchers("/v1/animalesPaginacion/**").permitAll()
-
-                // ---------- Zona ADMIN (2.2.4 / 2.3.5) ----------
+                // ---------- Zona ADMIN ----------
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/animales/insertar/**", "/animales/actualizar/**",
                                   "/animales/borrar/**", "/animales/imagenes/**").hasAuthority("ADMIN")
                 .requestMatchers("/usuarios/listado/**", "/usuarios/borrar/**").hasAuthority("ADMIN")
                 .requestMatchers("/citas/**").hasAuthority("ADMIN")
                 .requestMatchers("/estadisticas/**").hasAuthority("ADMIN")
-
-                // Cambio de estado de solicitudes (admin)
                 .requestMatchers("/solicitudes/cambiarEstado/**",
                                  "/solicitudes/listadoAdmin/**").hasAuthority("ADMIN")
 
-                // ---------- Zona CLIENTE registrado (2.2.3) ----------
+                // ---------- Endpoints REST autenticados ----------
+                .requestMatchers("/api/**").authenticated()
+
+                // ---------- Zona CLIENTE registrado ----------
                 .requestMatchers("/area-personal/**").hasAnyAuthority("CLIENTE", "ADMIN")
                 .requestMatchers("/favoritos/**").hasAnyAuthority("CLIENTE", "ADMIN")
                 .requestMatchers("/solicitudes/iniciar/**",
                                  "/solicitudes/misSolicitudes/**",
                                  "/solicitudes/cancelar/**").hasAnyAuthority("CLIENTE", "ADMIN")
-                .requestMatchers("/api/**").authenticated()
-                // Resto requiere estar autenticado
+
                 .anyRequest().authenticated()
             )
+            // Login configurado para SPA: devuelve 200 OK (no redirige a HTML)
             .formLogin(form -> form
-                .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home", true)
+                // Si login OK → 200 OK (sin redirect)
+                .successHandler((req, resp, auth) -> {
+                    resp.setStatus(HttpStatus.OK.value());
+                    resp.setContentType("application/json");
+                    resp.getWriter().write("{\"ok\":true}");
+                })
+                // Si login KO → 401 Unauthorized
+                .failureHandler((req, resp, ex) -> {
+                    resp.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    resp.setContentType("application/json");
+                    resp.getWriter().write("{\"ok\":false,\"error\":\"Credenciales incorrectas\"}");
+                })
                 .permitAll()
             )
+            // Logout SPA: devuelve 200 OK (sin redirect)
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessHandler((req, resp, auth) -> {
+                    resp.setStatus(HttpStatus.OK.value());
+                    resp.setContentType("application/json");
+                    resp.getWriter().write("{\"ok\":true}");
+                })
                 .permitAll()
             )
-            .exceptionHandling(exception -> exception.accessDeniedPage("/accesoDenegado"));
+            // Si una petición REST no está autenticada → 401 (sin redirect a HTML)
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+            );
 
         return http.build();
     }

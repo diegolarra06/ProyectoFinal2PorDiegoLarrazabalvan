@@ -1,40 +1,37 @@
 // =============================================================
 // SERVICIO DE AUTENTICACIÓN
-// Login y registro contra los endpoints del backend Spring Security.
-// El login se hace contra /login (form-urlencoded, no JSON)
-// porque Spring Security espera ese formato.
+// El backend devuelve siempre JSON (no HTML), así que ya no
+// hace falta manejar redirects manualmente.
 // =============================================================
 import api from './api'
 
 export const authService = {
 
-  // Login: envía email/password y Spring Security crea la sesión
+  // LOGIN: form-urlencoded a /login (Spring Security)
+  // Devuelve 200 OK con {ok:true} si va bien, o 401 si falla
   async login(email, password) {
     const params = new URLSearchParams()
     params.append('email', email)
     params.append('password', password)
-
     return api.post('/login', params, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
   },
 
-  // Cierra la sesión en el servidor
+  // LOGOUT
   async logout() {
     return api.post('/logout')
   },
 
-  // Registro de un cliente nuevo
+  // REGISTRO vía REST JSON
   async registrar(nombre, email, password, telefono, direccion) {
-    const params = new URLSearchParams()
-    params.append('nombre', nombre)
-    params.append('email', email)
-    params.append('password', password)
-    if (telefono) params.append('telefono', telefono)
-    if (direccion) params.append('direccion', direccion)
-
-    return api.post('/registro', params, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    return api.post('/api/registro', {
+      nombre, email, password, telefono, direccion
     })
+  },
+
+  // Comprobar la sesión actual
+  async miSesion() {
+    return api.get('/api/me')
   }
 }

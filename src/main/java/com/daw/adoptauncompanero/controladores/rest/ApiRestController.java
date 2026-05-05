@@ -266,4 +266,28 @@ public class ApiRestController {
     public ResponseEntity<EstadisticasDTO> estadisticas() {
         return ResponseEntity.ok(estadisticasService.calcularEstadisticas());
     }
+ // ============ REGISTRO PÚBLICO ============
+
+    @PostMapping("/registro")
+    public ResponseEntity<Map<String, Object>> registrarCliente(
+            @RequestBody Map<String, Object> body) {
+
+        Integer res = usuarioService.registrarCliente(
+                (String) body.get("nombre"),
+                (String) body.get("email"),
+                (String) body.get("password"),
+                (String) body.get("telefono"),
+                (String) body.get("direccion"));
+
+        Map<String, Object> resp = new HashMap<>();
+        if (res != null && res > 0) {
+            resp.put("ok", true);
+            resp.put("idUsuario", res);
+        } else {
+            resp.put("ok", false);
+            resp.put("error", res != null && res == -1 ? "Email ya registrado" : "Error desconocido");
+        }
+        return ResponseEntity.ok(resp);
+    }
+    
 }
