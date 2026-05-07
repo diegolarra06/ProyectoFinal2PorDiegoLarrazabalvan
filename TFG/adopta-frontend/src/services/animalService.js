@@ -1,5 +1,5 @@
 // =============================================================
-// SERVICIO DE ANIMALES (usa endpoints REST /api/)
+// SERVICIO DE ANIMALES (REST + multipart para imágenes)
 // =============================================================
 import api from './api'
 
@@ -29,11 +29,21 @@ export const animalService = {
     return api.delete(`/api/animales/${id}`)
   },
 
+  // ---------- IMÁGENES (PDF 6.2) ----------
+
+  async listarImagenes(idAnimal) {
+    return api.get(`/api/animales/${idAnimal}/imagenes`)
+  },
+
   async subirImagen(idAnimal, archivo) {
     const formData = new FormData()
     formData.append('archivo', archivo)
-    return api.post(`/animales/imagenes/${idAnimal}/subir`, formData, {
+    return api.post(`/api/animales/${idAnimal}/imagenes`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
+  },
+
+  async borrarImagen(idImagen) {
+    return api.delete(`/api/animales/imagenes/${idImagen}`)
   }
 }

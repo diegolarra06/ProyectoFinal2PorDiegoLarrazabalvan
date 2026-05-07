@@ -53,11 +53,18 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 // ---------- URLs públicas ----------
-                .requestMatchers(
-                        "/", "/home", "/login", "/registro", "/accesoDenegado",
-                        "/css/**", "/js/**", "/img/**", "/uploads/**",
-                        "/api/animales/**", "/api/me", "/api/registro"
-                ).permitAll()
+            		// ---------- Lectura pública (cualquier usuario, incluso sin login) ----------
+            		.requestMatchers(
+            		        "/", "/home", "/login", "/registro", "/accesoDenegado",
+            		        "/css/**", "/js/**", "/img/**", "/uploads/**",
+            		        "/api/me", "/api/registro"
+            		).permitAll()
+            		// Animales: solo permitimos GET sin autenticación (consultar catálogo y ficha)
+            		.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/animales/**").permitAll()
+            		// Animales: las modificaciones (POST, PUT, DELETE) requieren rol ADMIN
+            		.requestMatchers(org.springframework.http.HttpMethod.POST,   "/api/animales/**").hasAuthority("ADMIN")
+            		.requestMatchers(org.springframework.http.HttpMethod.PUT,    "/api/animales/**").hasAuthority("ADMIN")
+            		.requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/animales/**").hasAuthority("ADMIN")
 
                 // ---------- Zona ADMIN ----------
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")

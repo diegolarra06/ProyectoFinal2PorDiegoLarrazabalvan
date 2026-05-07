@@ -9,7 +9,9 @@
 
 html, body {
   width: 100%;
+  /* Cambiado a height 100% para asegurar el flujo completo */
   min-height: 100vh;
+  overflow-x: hidden; /* Evita scroll horizontal accidental */
 }
 
 body {
@@ -17,11 +19,13 @@ body {
   background-color: var(--color-fondo);
   line-height: 1.6;
   color: var(--color-texto);
+  display: flex;
+  flex-direction: column;
 }
 
 #app {
   width: 100%;
-  min-height: 100vh;
+  flex: 1; /* Empuja el footer hacia abajo si lo hay */
 }
 
 a {
@@ -30,12 +34,12 @@ a {
 }
 a:hover { text-decoration: underline; }
 
-/* ================= HERO ================= */
+/* ================= HERO (PANTALLA COMPLETA) ================= */
 .hero {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  height: 80vh; /* Aumentado para un look más impactante */
+  min-height: 500px;
   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
               url('/img/Portada.jpeg') no-repeat center/cover;
   display: flex;
@@ -43,48 +47,51 @@ a:hover { text-decoration: underline; }
   align-items: center;
   color: white;
 }
+
 .hero-content {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 30px 50px;
+  background-color: rgba(0, 0, 0, 0.6); /* Un poco más oscuro para legibilidad */
+  padding: 40px 60px;
   border-radius: var(--radius);
   animation: fadeIn 1.5s ease-in-out;
-  max-width: 90%;
+  max-width: 80%;
 }
+
 .hero-content h1 {
-  font-size: 3.5rem;
-  margin-bottom: 10px;
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Tamaño fluido según pantalla */
+  margin-bottom: 15px;
+  line-height: 1.1;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= LAYOUT ================= */
+/* ================= LAYOUT FULL WIDTH ================= */
 .contenedor {
   display: flex;
-  margin: 20px auto;
+  margin: 0 auto; /* Centrado sin margen superior exagerado */
   gap: 20px;
-  padding: 20px;
-  max-width: 1400px;
+  padding: 40px 2%; /* Padding lateral en % para ajustarse a la pantalla */
+  max-width: 100%;   /* Ahora ocupa todo el ancho */
   width: 100%;
 }
+
 .contenedor-central {
   flex: 1;
-  padding: 30px;
+  padding: 40px;
   background-color: var(--color-blanco);
   box-shadow: var(--sombra-suave);
   border-radius: var(--radius);
+  width: 100%;
 }
+
 .contenedor-central h2 {
   color: var(--color-primario);
   text-align: center;
-  margin: 20px 0 15px;
-}
-.contenedor-central ul {
-  list-style: disc;
-  padding-left: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 2rem;
 }
 
 /* ================= BOTONES ================= */
@@ -92,7 +99,7 @@ a:hover { text-decoration: underline; }
   background-color: var(--color-primario);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border-radius: var(--radius);
   cursor: pointer;
   transition: var(--transition);
@@ -100,49 +107,60 @@ a:hover { text-decoration: underline; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   text-decoration: none;
+  font-size: 1rem;
 }
+
 .btn-primario:hover {
   background-color: var(--color-primario-oscuro);
-  color: white;
-  text-decoration: none;
-}
-.btn-primario:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  transform: translateY(-2px); /* Efecto sutil de levante */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* ================= MENSAJES ================= */
+.mensaje-ok, .mensaje-error {
+  padding: 15px 20px;
+  border-radius: var(--radius);
+  margin: 20px 0;
+  font-weight: 500;
+}
+
 .mensaje-ok {
   background-color: #e8f5e9;
   color: var(--color-success);
-  padding: 12px 18px;
-  border-left: 4px solid var(--color-success);
-  border-radius: var(--radius);
-  margin: 10px 0;
+  border-left: 5px solid var(--color-success);
 }
+
 .mensaje-error {
   background-color: #ffebee;
   color: var(--color-error);
-  padding: 12px 18px;
-  border-left: 4px solid var(--color-error);
-  border-radius: var(--radius);
-  margin: 10px 0;
+  border-left: 5px solid var(--color-error);
 }
 
-/* ================= TÍTULO PÁGINA ================= */
-.titulo-pagina {
-  color: var(--color-primario);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ================= RESPONSIVE ACTIVO ================= */
+@media (max-width: 1024px) {
+  .contenedor {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .hero {
+    height: 50vh;
+  }
+  
+  .hero-content {
+    width: 95%;
+    padding: 20px;
+  }
 }
 
-/* ================= RESPONSIVE ================= */
-/*@media (max-width: 900px) {
-  .contenedor { flex-direction: column; padding: 10px; }
-  .hero-content h1 { font-size: 2rem; }
-  .hero { height: 40vh; min-height: 300px; }
-}*/
+@media (max-width: 600px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .contenedor-central {
+    padding: 20px;
+  }
+}
