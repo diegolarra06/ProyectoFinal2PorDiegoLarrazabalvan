@@ -51,6 +51,15 @@
           </div>
         </RouterLink>
       </div>
+      <div class="col-md-4 mb-3">
+      <RouterLink to="/admin/noticias" class="card text-decoration-none h-100">
+      <div class="card-body text-center">
+      <i class="bi bi-newspaper text-success" style="font-size: 2.5rem;"></i>
+      <h4>Noticias</h4>
+       <p>Crear, editar y publicar noticias del centro</p>
+    </div>
+  </RouterLink>
+</div>
     </div>
   </div>
 </template>

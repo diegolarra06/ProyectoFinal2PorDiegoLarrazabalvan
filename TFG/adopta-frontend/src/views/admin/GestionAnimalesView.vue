@@ -2,6 +2,7 @@
   ===========================================================
   GESTIÓN DE ANIMALES (descripción 2.2.4.1)
   CRUD completo + gestión de imágenes integrada (PDF 6.2)
+  + Especies dinámicas (sugerencias desde la BBDD)
   ===========================================================
 -->
 <script setup>
@@ -11,6 +12,9 @@ import { animalService } from '@/services/animalService'
 const animales = ref([])
 const cargando = ref(false)
 const mensaje = ref(null)
+
+// Lista de especies que existen ya en la BBDD (para sugerir al admin)
+const especiesDisponibles = ref([])
 
 // Formulario de creación/edición
 const editando = ref(false)
@@ -36,7 +40,21 @@ const cargar = async () => {
   } finally { cargando.value = false }
 }
 
-onMounted(cargar)
+// Carga las especies que ya existen para usarlas como sugerencias
+const cargarEspecies = async () => {
+  try {
+    const resp = await animalService.listarEspecies()
+    especiesDisponibles.value = resp.data || []
+  } catch (e) {
+    console.error('Error cargando especies', e)
+  }
+}
+
+// Al montar: cargamos animales y especies
+onMounted(async () => {
+  await cargar()
+  await cargarEspecies()
+})
 
 // Cargar las imágenes de un animal cuando se está editando
 const cargarImagenes = async (idAnimal) => {
@@ -108,6 +126,7 @@ const guardar = async () => {
 
     limpiar()
     await cargar()
+    await cargarEspecies() // refresca la lista por si se añadió una especie nueva
   } catch (e) {
     mensaje.value = {
       tipo: 'error',
@@ -120,6 +139,7 @@ const borrar = async (id) => {
   if (!confirm('¿Borrar este animal? Se borrarán también sus imágenes.')) return
   await animalService.borrar(id)
   await cargar()
+  await cargarEspecies() // refrescamos especies por si borrar dejó alguna sin uso
 }
 
 // Subir imagen extra a un animal ya existente (durante edición)
@@ -177,11 +197,21 @@ const borrarImagen = async (idImagen) => {
             <label class="form-label">Nombre *</label>
             <input v-model="form.nombre" class="form-control" required />
           </div>
+
+          <!-- Campo especie con sugerencias dinámicas (datalist HTML5) -->
           <div class="col-md-4">
             <label class="form-label">Especie *</label>
             <input v-model="form.especie" class="form-control" required
-                   placeholder="Perro, Gato, Conejo, Hámster..." />
+                   list="especies-existentes"
+                   placeholder="Escribe o elige (Perro, Gato, Loro...)" />
+            <datalist id="especies-existentes">
+              <option v-for="esp in especiesDisponibles" :key="esp" :value="esp" />
+            </datalist>
+            <small class="text-muted">
+              Puedes escribir una especie nueva o elegir una existente
+            </small>
           </div>
+
           <div class="col-md-2">
             <label class="form-label">Edad</label>
             <input v-model.number="form.edad" type="number" class="form-control" min="0" />

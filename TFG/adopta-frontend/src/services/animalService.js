@@ -9,6 +9,10 @@ export const animalService = {
     return api.get('/api/animales', { params: { page, size, sort } })
   },
 
+  async listarEspecies() {
+    return api.get('/api/animales/especies')
+  },
+
   async buscarConFiltros(filtros) {
     return api.get('/api/animales/buscar', { params: filtros })
   },
@@ -42,8 +46,9 @@ export const animalService = {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
   },
-
+  
   async borrarImagen(idImagen) {
     return api.delete(`/api/animales/imagenes/${idImagen}`)
   }
+  
 }

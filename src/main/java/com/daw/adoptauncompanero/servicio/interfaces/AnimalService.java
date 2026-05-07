@@ -37,4 +37,6 @@ public interface AnimalService {
 
 	// PDF 6.3 - paginación
 	Page<AnimalDTO> listarAnimalesPaginados(Pageable pageable);
+	
+    java.util.List<String> listarEspeciesDistintas();
 }

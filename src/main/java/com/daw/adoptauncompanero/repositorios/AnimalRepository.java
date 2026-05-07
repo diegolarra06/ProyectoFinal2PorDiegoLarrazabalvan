@@ -69,4 +69,10 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Integer> {
 			    ORDER BY a.fechaAlta DESC
 			""")
 	List<AnimalEntity> listarDisponibles();
+	
+	// Devuelve las especies distintas que existen actualmente en la BBDD
+    @Query("SELECT DISTINCT a.especie FROM AnimalEntity a "
+         + "WHERE a.especie IS NOT NULL AND a.especie <> '' "
+         + "ORDER BY a.especie ASC")
+    List<String> listarEspeciesDistintas();
 }

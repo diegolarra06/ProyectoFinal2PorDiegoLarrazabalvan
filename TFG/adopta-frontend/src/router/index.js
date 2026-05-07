@@ -11,6 +11,12 @@ const routes = [
   { path: '/noticias', name: 'Noticias',    component: () => import('@/views/NoticiasView.vue') },
 
   // ---------- ZONA CLIENTE REGISTRADO (2.2.3) ----------
+   {
+  path: '/noticias/:id',
+  name: 'NoticiaDetalle',
+  component: () => import('@/views/NoticiaDetalleView.vue'),
+  props: true
+},
   {
     path: '/area-personal',
     name: 'AreaPersonal',
@@ -67,6 +73,12 @@ const routes = [
     name: 'GestionCitas',
     component: () => import('@/views/admin/GestionCitasView.vue'),
     meta: { requiereAuth: true, requiereAdmin: true }
+  },
+  {
+  path: '/admin/noticias',
+  name: 'GestionNoticias',
+  component: () => import('@/views/admin/GestionNoticiasView.vue'),
+  meta: { requiereAuth: true, requiereAdmin: true }
   },
   {
     path: '/admin/estadisticas',

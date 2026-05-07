@@ -51,6 +51,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
+            		// Noticias: GET público (todos pueden leer noticias)
+            		.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/noticias/**").permitAll()
+            		// Noticias: modificaciones solo admin
+            		.requestMatchers(org.springframework.http.HttpMethod.POST,   "/api/noticias/**").hasAuthority("ADMIN")
+            		.requestMatchers(org.springframework.http.HttpMethod.PUT,    "/api/noticias/**").hasAuthority("ADMIN")
+            		.requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/noticias/**").hasAuthority("ADMIN")
 
                 // ---------- URLs públicas ----------
             		// ---------- Lectura pública (cualquier usuario, incluso sin login) ----------

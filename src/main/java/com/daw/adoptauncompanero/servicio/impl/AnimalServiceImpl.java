@@ -143,4 +143,9 @@ public class AnimalServiceImpl implements AnimalService {
     public Page<AnimalDTO> listarAnimalesPaginados(Pageable pageable) {
         return animalRepository.obtenerAnimalesPaginados(pageable);
     }
+
+	@Override
+	public List<String> listarEspeciesDistintas() {
+		return animalRepository.listarEspeciesDistintas();
+	}
 }
