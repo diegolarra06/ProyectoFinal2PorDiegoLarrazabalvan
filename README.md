@@ -1,4 +1,3 @@
-DEJO AQUI LA BASE DE DATOS:
 -- ===============================================================
 -- BASE DE DATOS: AdoptaUnCompañero
 -- Proyecto CFGS DAW 2025/2026
@@ -7,6 +6,38 @@ DEJO AQUI LA BASE DE DATOS:
 CREATE DATABASE IF NOT EXISTS adopta_un_companero;
 USE adopta_un_companero;
 
+
+-- Tabla de noticias
+CREATE TABLE noticias (
+    id_noticia       INT AUTO_INCREMENT PRIMARY KEY,
+    titulo           VARCHAR(200) NOT NULL,
+    subtitulo        VARCHAR(300),
+    contenido        TEXT NOT NULL,
+    imagen           VARCHAR(255),
+    autor            VARCHAR(100),
+    fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    publicada        BOOLEAN DEFAULT TRUE,
+    INDEX idx_fecha (fecha_publicacion DESC),
+    INDEX idx_publicada (publicada)
+);
+
+-- Datos de prueba de ejemplo
+INSERT INTO noticias (titulo, subtitulo, contenido, autor, publicada) VALUES
+('Nueva campaña de adopción de primavera',
+ '¡10 nuevos animales esperan tu hogar!',
+ 'Esta semana han llegado al centro 10 nuevos compañeros buscando un hogar amoroso. Entre ellos hay perros, gatos y conejos de todas las edades. Todos están vacunados, desparasitados y con su microchip. Si estás pensando en adoptar, este es un momento perfecto. Acércate al centro en horario de 10:00 a 18:00 de lunes a sábado y conoce a estos peludos esperando una familia.',
+ 'Centro AdoptaUnCompañero', TRUE),
+
+('Jornada solidaria de puertas abiertas',
+ 'Te esperamos el próximo sábado',
+ 'El próximo sábado celebramos una jornada de puertas abiertas en el centro. Habrá actividades para toda la familia: paseos con perros, charlas sobre cuidado animal, demostraciones de adiestramiento positivo y un photocall con los animales más fotogénicos. La entrada es libre y los donativos se destinarán íntegramente a mejorar las instalaciones del centro.',
+ 'Equipo de voluntarios', TRUE),
+
+('Consejos para nuevos adoptantes',
+ 'Lo que debes saber antes de adoptar',
+ 'Adoptar un animal es una decisión que cambia tu vida y la del animal. Antes de dar el paso, es importante reflexionar sobre el tiempo que puedes dedicarle, el espacio del que dispones, los recursos económicos necesarios y el compromiso a largo plazo. Un perro vive entre 10 y 15 años, un gato puede llegar a 20 y un conejo unos 8-10 años. La adopción es para toda la vida.',
+ 'Veterinaria del centro', TRUE);
 -- ===============================================================
 -- TABLA ROLES (PDF 5 - Seguridad)
 -- Define los roles del sistema: CLIENTE y ADMIN (descripción 2.2)
