@@ -1,12 +1,3 @@
-<!--
-  ===========================================================
-  FICHA INDIVIDUAL DE UN ANIMAL (descripción 2.3.2)
-  - Información detallada (2.3.2.2)
-  - Estado del animal (2.3.2.3)
-  - Botones de favorito y solicitar adopción (2.3.2.4)
-  Tema 10 PDF - rutas con parámetros + watcher
-  ===========================================================
--->
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -25,8 +16,7 @@ const cargarAnimal = async (id) => {
   error.value = null
   try {
     const resp = await animalService.obtenerFicha(id)
-    // Si el backend devuelve la vista (HTML), aquí no llegará bien.
-    // Idealmente el back tendría un endpoint REST. Trabajamos con lo que devuelva.
+
     animal.value = resp.data
   } catch (e) {
     error.value = 'No se pudo cargar el animal.'
@@ -37,7 +27,6 @@ const cargarAnimal = async (id) => {
 
 onMounted(() => cargarAnimal(route.params.id))
 
-// Tema 10 PDF - watcher: si cambia el id en la ruta, recargamos
 watch(() => route.params.id, (nuevoId) => {
   if (nuevoId) cargarAnimal(nuevoId)
 })
@@ -60,9 +49,8 @@ const solicitarAdopcion = () => {
     <div class="ficha">
       <div class="ficha-img">
         <img :src="animal.imagenes && animal.imagenes.length > 0
-                    ? `http://localhost:8080/uploads/${animal.imagenes[0].urlImagen}`
-                    : '/img/perrera.jpg'"
-             :alt="animal.nombre" />
+          ? `http://localhost:8080/uploads/${animal.imagenes[0].urlImagen}`
+          : '/img/perrera.jpg'" :alt="animal.nombre" />
       </div>
 
       <div class="ficha-info">
@@ -90,9 +78,7 @@ const solicitarAdopcion = () => {
           <p>{{ animal.estadoSanitario || '—' }}</p>
         </div>
 
-        <button v-if="animal.estado === 'DISPONIBLE'"
-                @click="solicitarAdopcion"
-                class="btn-primario btn-grande">
+        <button v-if="animal.estado === 'DISPONIBLE'" @click="solicitarAdopcion" class="btn-primario btn-grande">
           <i class="bi bi-heart-fill"></i> Iniciar proceso de adopción
         </button>
         <p v-else class="alert alert-info">
@@ -110,27 +96,82 @@ const solicitarAdopcion = () => {
 </template>
 
 <style scoped>
-.ficha-wrapper { padding: 20px; max-width: 1100px; margin: 0 auto; }
-.volver { display: inline-block; margin-bottom: 20px; }
+.ficha-wrapper {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
 .ficha {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
-  background: white; padding: 30px; border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  background: white;
+  padding: 30px;
+  border-radius: var(--radius);
   box-shadow: var(--sombra-suave);
 }
-.ficha-img img { width: 100%; border-radius: var(--radius); }
-.ficha-info h1 { color: var(--color-primario); }
-.badge-estado {
-  display: inline-block; padding: 6px 14px; border-radius: 20px;
-  color: white; font-size: 0.85rem; margin: 10px 0; font-weight: 600;
+
+.ficha-img img {
+  width: 100%;
+  border-radius: var(--radius);
 }
-.badge-estado.DISPONIBLE { background: var(--color-success); }
-.badge-estado.RESERVADO  { background: var(--color-warning); }
-.badge-estado.ADOPTADO   { background: var(--color-secundario); }
-.datos { margin: 15px 0; }
-.seccion { margin-top: 20px; }
-.seccion h3 { color: var(--color-primario); font-size: 1.1rem; margin-bottom: 5px; }
-.btn-grande { font-size: 1.1rem; padding: 14px 28px; margin-top: 25px; width: 100%; }
+
+.ficha-info h1 {
+  color: var(--color-primario);
+}
+
+.badge-estado {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.badge-estado.DISPONIBLE {
+  background: var(--color-success);
+}
+
+.badge-estado.RESERVADO {
+  background: var(--color-warning);
+}
+
+.badge-estado.ADOPTADO {
+  background: var(--color-secundario);
+}
+
+.datos {
+  margin: 15px 0;
+}
+
+.seccion {
+  margin-top: 20px;
+}
+
+.seccion h3 {
+  color: var(--color-primario);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.btn-grande {
+  font-size: 1.1rem;
+  padding: 14px 28px;
+  margin-top: 25px;
+  width: 100%;
+}
+
 @media (max-width: 800px) {
-  .ficha { grid-template-columns: 1fr; }
+  .ficha {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

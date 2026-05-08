@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  INICIAR SOLICITUD DE ADOPCIÓN (descripción 2.3.4)
-  ===========================================================
--->
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -44,14 +39,11 @@ const enviar = async () => {
 
       <form v-if="!exito" @submit.prevent="enviar">
         <p>Estás a punto de iniciar una solicitud de adopción.
-           Por favor, cuéntanos algo sobre tu situación, tu vivienda
-           y por qué quieres adoptar:</p>
+          Por favor, cuéntanos algo sobre tu situación, tu vivienda
+          y por qué quieres adoptar:</p>
 
-        <textarea v-model="comentarios"
-                  class="form-control my-3"
-                  rows="6"
-                  placeholder="Vivo en un piso con jardín, tengo experiencia con animales..."
-                  required></textarea>
+        <textarea v-model="comentarios" class="form-control my-3" rows="6"
+          placeholder="Vivo en un piso con jardín, tengo experiencia con animales..." required></textarea>
 
         <div class="d-flex gap-2">
           <RouterLink :to="`/animal/${idAnimal}`" class="btn btn-secondary">
@@ -68,8 +60,23 @@ const enviar = async () => {
 </template>
 
 <style scoped>
-.solicitud-wrapper { padding: 30px; display: flex; justify-content: center; }
-.solicitud-card { background: white; padding: 40px; border-radius: var(--radius);
-                  box-shadow: var(--sombra-media); max-width: 600px; width: 100%; }
-.solicitud-card h2 { color: var(--color-primario); margin-bottom: 20px; }
+.solicitud-wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.solicitud-card {
+  background: white;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--sombra-media);
+  max-width: 600px;
+  width: 100%;
+}
+
+.solicitud-card h2 {
+  color: var(--color-primario);
+  margin-bottom: 20px;
+}
 </style>

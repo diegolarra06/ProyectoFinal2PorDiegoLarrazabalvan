@@ -7,7 +7,6 @@ import com.daw.adoptauncompanero.dtos.CitaDTO;
 
 public interface CitaService {
 
-    // 2.2.4.4 - admin programa cita (envía email automáticamente)
     Integer programarCita(Integer idSolicitud, LocalDateTime fechaCita, String observaciones);
 
     Integer actualizarCita(Integer idCita, LocalDateTime fechaCita, String observaciones);

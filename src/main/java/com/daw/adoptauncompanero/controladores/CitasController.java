@@ -13,56 +13,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daw.adoptauncompanero.servicio.interfaces.CitaService;
 
-// =============================================================
-// CONTROLADOR CITAS (2.2.4.4 - Programar citas con adoptantes)
-// Solo para administradores.
-// =============================================================
 @Controller
 @RequestMapping("/citas")
 public class CitasController {
 
-    @Autowired
-    private CitaService citaService;
+	@Autowired
+	private CitaService citaService;
 
-    @GetMapping("/listado")
-    public String listadoGet(Model model) {
-        model.addAttribute("lista", citaService.listarTodasLasCitas());
-        return "citas/listado";
-    }
+	@GetMapping("/listado")
+	public String listadoGet(Model model) {
+		model.addAttribute("lista", citaService.listarTodasLasCitas());
+		return "citas/listado";
+	}
 
-    @GetMapping("/programar")
-    public String programarGet(Model model) {
-        model.addAttribute("resultado", null);
-        return "citas/programar";
-    }
+	@GetMapping("/programar")
+	public String programarGet(Model model) {
+		model.addAttribute("resultado", null);
+		return "citas/programar";
+	}
 
-    @PostMapping("/programar")
-    public String programarPost(@RequestParam Integer idSolicitud,
-                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaCita,
-                                @RequestParam(required = false) String observaciones,
-                                Model model) {
+	@PostMapping("/programar")
+	public String programarPost(@RequestParam Integer idSolicitud,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaCita,
+			@RequestParam(required = false) String observaciones, Model model) {
 
-        Integer res = citaService.programarCita(idSolicitud, fechaCita, observaciones);
-        model.addAttribute("resultado", res);
-        return "citas/programar";
-    }
+		Integer res = citaService.programarCita(idSolicitud, fechaCita, observaciones);
+		model.addAttribute("resultado", res);
+		return "citas/programar";
+	}
 
-    @PostMapping("/actualizar")
-    public String actualizar(@RequestParam Integer idCita,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaCita,
-                             @RequestParam(required = false) String observaciones,
-                             Model model) {
-        Integer res = citaService.actualizarCita(idCita, fechaCita, observaciones);
-        model.addAttribute("resultado", res);
-        model.addAttribute("lista", citaService.listarTodasLasCitas());
-        return "citas/listado";
-    }
+	@PostMapping("/actualizar")
+	public String actualizar(@RequestParam Integer idCita,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaCita,
+			@RequestParam(required = false) String observaciones, Model model) {
+		Integer res = citaService.actualizarCita(idCita, fechaCita, observaciones);
+		model.addAttribute("resultado", res);
+		model.addAttribute("lista", citaService.listarTodasLasCitas());
+		return "citas/listado";
+	}
 
-    @PostMapping("/borrar")
-    public String borrar(@RequestParam Integer idCita, Model model) {
-        Integer res = citaService.borrarCita(idCita);
-        model.addAttribute("resultado", res);
-        model.addAttribute("lista", citaService.listarTodasLasCitas());
-        return "citas/listado";
-    }
+	@PostMapping("/borrar")
+	public String borrar(@RequestParam Integer idCita, Model model) {
+		Integer res = citaService.borrarCita(idCita);
+		model.addAttribute("resultado", res);
+		model.addAttribute("lista", citaService.listarTodasLasCitas());
+		return "citas/listado";
+	}
 }

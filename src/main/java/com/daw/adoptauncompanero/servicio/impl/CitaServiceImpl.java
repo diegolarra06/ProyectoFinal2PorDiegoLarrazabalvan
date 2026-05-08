@@ -16,9 +16,7 @@ import com.daw.adoptauncompanero.repositorios.SolicitudAdopcionRepository;
 import com.daw.adoptauncompanero.servicio.interfaces.CitaService;
 import com.daw.adoptauncompanero.servicio.interfaces.EmailService;
 
-// =============================================================
-// SERVICIO CITAS (2.2.4.4 - Programar citas con adoptantes)
-// =============================================================
+
 @Service
 public class CitaServiceImpl implements CitaService {
 
@@ -38,7 +36,6 @@ public class CitaServiceImpl implements CitaService {
         c.setSolicitud(s);
         Integer id = citaRepository.save(c).getIdCita();
 
-        // Email automático al adoptante (lógica de negocio 2.2.5)
         try {
             emailService.notificarCitaProgramada(
                     s.getUsuario().getEmail(),

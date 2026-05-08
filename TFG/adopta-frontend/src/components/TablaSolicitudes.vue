@@ -1,11 +1,4 @@
-<!--
-  ===========================================================
-  TABLA REUTILIZABLE DE SOLICITUDES
-  Se usa tanto en MisSolicitudes (cliente) como en
-  GestionSolicitudes (admin).
-  Tema 9 PDF - Props + Emits para comunicación con el padre
-  ===========================================================
--->
+
 <script setup>
 defineProps({
   solicitudes: { type: Array, required: true },
@@ -14,7 +7,7 @@ defineProps({
 
 const emit = defineEmits(['ver-historial', 'cancelar', 'cambiar-estado'])
 
-// Color del estado
+
 const colorEstado = (nombre) => {
   const colores = {
     EN_REVISION: 'badge bg-warning text-dark',

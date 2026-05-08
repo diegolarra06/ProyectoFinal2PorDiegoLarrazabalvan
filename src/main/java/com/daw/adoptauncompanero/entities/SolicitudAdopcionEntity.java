@@ -4,15 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD SOLICITUD DE ADOPCIÓN (2.3.4 Proceso de adopción)
-// Funcionalidades cubiertas:
-//  - 2.2.3.4 Iniciar solicitud (cliente registrado)
-//  - 2.2.4.2 Gestionar solicitudes (admin)
-//  - 2.2.4.3 Cambiar estado
-//  - 2.4.6 Admin revisa la solicitud
-//  - Restricción SQL: un usuario no puede pedir 2 veces el mismo animal
-// =============================================================
 @Entity
 @Table(name = "solicitudes_adopcion")
 public class SolicitudAdopcionEntity {
@@ -40,11 +31,9 @@ public class SolicitudAdopcionEntity {
 	@JoinColumn(name = "id_estado", nullable = false)
 	private EstadoSolicitudEntity estado;
 
-	// 2.2.5: registro del historial de cambios de estado
 	@OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL)
 	private List<HistorialEstadoSolicitudEntity> historial;
 
-	// 2.2.4.4 / 2.3.5: gestión de citas con adoptantes
 	@OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL)
 	private List<CitaAdopcionEntity> citas;
 

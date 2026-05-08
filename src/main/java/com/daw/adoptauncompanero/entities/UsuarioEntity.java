@@ -5,12 +5,7 @@ import java.util.List;
 import java.util.Set;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD USUARIO (PDF 5 - Seguridad y Roles)
-// Representa tanto a clientes registrados (2.2.3) como a
-// administradores (2.2.4). El rol se determina por la tabla
-// intermedia usuario_roles.
-// =============================================================
+
 @Entity
 @Table(name = "usuarios")
 public class UsuarioEntity {
@@ -23,11 +18,9 @@ public class UsuarioEntity {
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
-	// Email único (2.2.3.1: iniciar sesión)
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-	// Contraseña encriptada con BCrypt (PDF 5)
 	@Column(name = "password", nullable = false)
 	private String password;
 
@@ -40,15 +33,12 @@ public class UsuarioEntity {
 	@Column(name = "fecha_registro")
 	private LocalDateTime fechaRegistro;
 
-	// Relación con roles (PDF 5: necesario para Spring Security)
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<UsuarioRolEntity> usuarioRoles;
 
-	// 2.3.3.4: historial de solicitudes del usuario
 	@OneToMany(mappedBy = "usuario")
 	private List<SolicitudAdopcionEntity> solicitudes;
 
-	// 2.2.3.3 / 2.3.3: animales favoritos del usuario
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FavoritoEntity> favoritos;
 

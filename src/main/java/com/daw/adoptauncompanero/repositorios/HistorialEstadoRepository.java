@@ -9,10 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.daw.adoptauncompanero.dtos.HistorialEstadoDTO;
 import com.daw.adoptauncompanero.entities.HistorialEstadoSolicitudEntity;
 
-// =============================================================
-// REPOSITORIO HISTORIAL DE ESTADOS (2.2.5 - lógica de negocio)
-// 2.4.9: el cliente puede ver el historial completo de su solicitud
-// =============================================================
+
 public interface HistorialEstadoRepository extends JpaRepository<HistorialEstadoSolicitudEntity, Integer> {
 
     @Query("""

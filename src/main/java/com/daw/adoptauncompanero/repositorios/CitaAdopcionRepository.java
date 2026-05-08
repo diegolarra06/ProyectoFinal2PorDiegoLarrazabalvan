@@ -9,9 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.daw.adoptauncompanero.dtos.CitaDTO;
 import com.daw.adoptauncompanero.entities.CitaAdopcionEntity;
 
-// =============================================================
-// REPOSITORIO CITAS DE ADOPCIÓN (2.2.4.4)
-// =============================================================
+
 public interface CitaAdopcionRepository extends JpaRepository<CitaAdopcionEntity, Integer> {
 
     @Query("""

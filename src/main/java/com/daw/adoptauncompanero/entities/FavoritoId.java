@@ -5,11 +5,6 @@ import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-// =============================================================
-// CLAVE COMPUESTA PARA FAVORITOS (2.2.3.3)
-// La tabla favoritos tiene PRIMARY KEY (id_usuario, id_animal),
-// por lo que JPA necesita una clase @Embeddable como ID compuesto.
-// =============================================================
 @Embeddable
 public class FavoritoId implements Serializable {
 

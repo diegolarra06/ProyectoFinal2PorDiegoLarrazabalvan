@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  MIS FAVORITOS (descripción 2.2.3.3 / 2.3.3.1)
-  ===========================================================
--->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -19,12 +14,12 @@ const cargar = async () => {
     const resp = await favoritoService.listar()
     favoritos.value = Array.isArray(resp.data)
       ? resp.data.map(f => ({
-          idAnimal: f.idAnimal,
-          nombre: f.nombreAnimal,
-          especie: f.especie,
-          estado: f.estado,
-          imagenPrincipal: f.imagenPrincipal
-        }))
+        idAnimal: f.idAnimal,
+        nombre: f.nombreAnimal,
+        especie: f.especie,
+        estado: f.estado,
+        imagenPrincipal: f.imagenPrincipal
+      }))
       : []
   } catch (e) {
     console.error(e)
@@ -59,20 +54,16 @@ const quitar = async (idAnimal) => {
     </div>
 
     <div v-else class="grid-animales mt-3">
-      <TarjetaAnimal v-for="a in favoritos"
-                     :key="a.idAnimal"
-                     :animal="a"
-                     :es-favorito="true"
-                     :mostrar-boton-favorito="true"
-                     @ver-ficha="verFicha"
-                     @toggle-favorito="quitar" />
+      <TarjetaAnimal v-for="a in favoritos" :key="a.idAnimal" :animal="a" :es-favorito="true"
+        :mostrar-boton-favorito="true" @ver-ficha="verFicha" @toggle-favorito="quitar" />
     </div>
   </div>
 </template>
 
 <style scoped>
 .grid-animales {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 </style>

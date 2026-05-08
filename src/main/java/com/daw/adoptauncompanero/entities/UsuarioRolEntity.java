@@ -13,11 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//=============================================================
-//ENTIDAD INTERMEDIA USUARIO-ROL (PDF 5 - Seguridad)
-//Permite asociar varios roles a un mismo usuario (1 normalmente,
-//pero deja la puerta abierta a usuarios con múltiples permisos)
-//=============================================================
+
 @Entity
 @Table(name = "usuario_roles")
 public class UsuarioRolEntity {

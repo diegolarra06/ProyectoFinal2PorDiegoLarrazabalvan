@@ -9,10 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-// =============================================================
-// ENTIDAD NOTICIA
-// Sistema de noticias gestionable por el administrador.
-// =============================================================
+
 @Entity
 @Table(name = "noticias")
 public class NoticiaEntity {

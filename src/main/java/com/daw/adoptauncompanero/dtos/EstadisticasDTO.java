@@ -1,8 +1,5 @@
 package com.daw.adoptauncompanero.dtos;
 
-//DTO Estadísticas (2.2.4.7 - panel del administrador)
-//Resume los datos que el sistema genera automáticamente:
-//- % animales adoptados, especies más populares, tiempos medios, etc.
 public class EstadisticasDTO {
 
 	private Long totalAnimales;

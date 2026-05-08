@@ -6,10 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.daw.adoptauncompanero.entities.EstadoSolicitudEntity;
 
-// =============================================================
-// REPOSITORIO ESTADOS DE SOLICITUD (2.3.4.4)
-// EN_REVISION, APROBADA, RECHAZADA, EN_PROCESO, FINALIZADA
-// =============================================================
+
 public interface EstadoSolicitudRepository extends JpaRepository<EstadoSolicitudEntity, Integer> {
 
     @Query("SELECT e FROM EstadoSolicitudEntity e WHERE e.nombre = :nombre")

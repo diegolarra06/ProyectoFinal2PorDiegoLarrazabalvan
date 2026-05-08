@@ -2,7 +2,6 @@ package com.daw.adoptauncompanero.dtos;
 
 import java.time.LocalDateTime;
 
-//DTO Cita (2.2.4.4 - Programar citas) — para gestión administrativa
 public class CitaDTO {
 
 	private Integer idCita;

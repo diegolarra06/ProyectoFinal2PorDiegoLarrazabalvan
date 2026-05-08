@@ -1,10 +1,5 @@
 package com.daw.adoptauncompanero.dtos;
 
-//=============================================================
-//DTO ANIMAL — usado en el catálogo (2.3.1) y la ficha (2.3.2)
-//Lleva una imagen principal (la primera) para mostrar en el
-//listado, y el estado como String para Thymeleaf.
-//=============================================================
 public class AnimalDTO {
 
 	private Integer idAnimal;
@@ -15,8 +10,8 @@ public class AnimalDTO {
 	private String personalidad;
 	private String necesidadesEspeciales;
 	private String estadoSanitario;
-	private String estado; // DISPONIBLE / RESERVADO / ADOPTADO
-	private String imagenPrincipal; // primera imagen (puede ser null)
+	private String estado; 
+	private String imagenPrincipal; 
 
 	public AnimalDTO() {
 	}

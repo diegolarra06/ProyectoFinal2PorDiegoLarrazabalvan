@@ -8,9 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.daw.adoptauncompanero.entities.NotificacionEntity;
 
-// =============================================================
-// REPOSITORIO NOTIFICACIONES (2.2.5)
-// =============================================================
+
 public interface NotificacionRepository extends JpaRepository<NotificacionEntity, Integer> {
 
     @Query("""

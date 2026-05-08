@@ -1,11 +1,4 @@
-<!--
-  ===========================================================
-  HEADER + MENÚ DE NAVEGACIÓN
-  Muestra opciones diferentes según el rol del usuario logueado.
-  Tema 10 PDF - <RouterLink>
-  Tema 9 PDF - Componentes reutilizables
-  ===========================================================
--->
+
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
 import { authStore } from '@/stores/auth'
@@ -13,12 +6,11 @@ import { authService } from '@/services/authService'
 
 const router = useRouter()
 
-// Cierra la sesión y redirige al home
 const cerrarSesion = async () => {
   try {
     await authService.logout()
   } catch (e) {
-    // El backend puede devolver redirect, lo ignoramos
+
   } finally {
     authStore.logout()
     router.push('/')
@@ -40,14 +32,12 @@ const cerrarSesion = async () => {
       <RouterLink to="/catalogo">Catálogo</RouterLink>
       <RouterLink to="/noticias">Noticias</RouterLink>
 
-      <!-- Cliente registrado -->
       <template v-if="authStore.state.autenticado && authStore.esCliente()">
         <RouterLink to="/area-personal">Mi Área</RouterLink>
         <RouterLink to="/favoritos">Favoritos</RouterLink>
         <RouterLink to="/mis-solicitudes">Mis Solicitudes</RouterLink>
       </template>
 
-      <!-- Admin -->
       <template v-if="authStore.esAdmin()">
         <RouterLink to="/admin">Panel Admin</RouterLink>
       </template>

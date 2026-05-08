@@ -3,11 +3,6 @@ package com.daw.adoptauncompanero.entities;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD CITA DE ADOPCIÓN (2.2.4.4 - Programar citas)
-// El administrador puede programar una cita con el adoptante
-// dentro del proceso de adopción.
-// =============================================================
 @Entity
 @Table(name = "citas_adopcion")
 public class CitaAdopcionEntity {

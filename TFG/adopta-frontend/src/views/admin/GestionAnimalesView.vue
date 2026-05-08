@@ -1,10 +1,4 @@
-<!--
-  ===========================================================
-  GESTIÓN DE ANIMALES (descripción 2.2.4.1)
-  CRUD completo + gestión de imágenes integrada (PDF 6.2)
-  + Especies dinámicas (sugerencias desde la BBDD)
-  ===========================================================
--->
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import { animalService } from '@/services/animalService'
@@ -13,14 +7,14 @@ const animales = ref([])
 const cargando = ref(false)
 const mensaje = ref(null)
 
-// Lista de especies que existen ya en la BBDD (para sugerir al admin)
+
 const especiesDisponibles = ref([])
 
-// Formulario de creación/edición
+
 const editando = ref(false)
 const form = ref(formVacio())
 
-// Imágenes del animal que se está editando
+
 const imagenes = ref([])
 const archivoNuevo = ref(null)
 
@@ -40,7 +34,6 @@ const cargar = async () => {
   } finally { cargando.value = false }
 }
 
-// Carga las especies que ya existen para usarlas como sugerencias
 const cargarEspecies = async () => {
   try {
     const resp = await animalService.listarEspecies()
@@ -50,13 +43,11 @@ const cargarEspecies = async () => {
   }
 }
 
-// Al montar: cargamos animales y especies
 onMounted(async () => {
   await cargar()
   await cargarEspecies()
 })
 
-// Cargar las imágenes de un animal cuando se está editando
 const cargarImagenes = async (idAnimal) => {
   try {
     const resp = await animalService.listarImagenes(idAnimal)
@@ -87,7 +78,6 @@ const limpiar = () => {
   archivoNuevo.value = null
 }
 
-// Manejar selección de archivo
 const onArchivoSeleccionado = (event) => {
   archivoNuevo.value = event.target.files[0] || null
 }
@@ -96,7 +86,6 @@ const guardar = async () => {
   try {
     let idAnimal = form.value.id
 
-    // 1. Crear o actualizar el animal
     if (editando.value) {
       await animalService.actualizar(form.value)
     } else {
@@ -104,13 +93,12 @@ const guardar = async () => {
       idAnimal = resp.data
     }
 
-    // 2. Si se ha seleccionado un archivo, subirlo
     if (archivoNuevo.value && idAnimal) {
       try {
         await animalService.subirImagen(idAnimal, archivoNuevo.value)
         mensaje.value = { tipo: 'ok', texto: 'Animal e imagen guardados correctamente.' }
       } catch (errImg) {
-        // Si falla la imagen, avisamos pero el animal sí se creó
+
         mensaje.value = {
           tipo: 'error',
           texto: 'Animal guardado, pero falló la imagen: ' +
@@ -126,7 +114,7 @@ const guardar = async () => {
 
     limpiar()
     await cargar()
-    await cargarEspecies() // refresca la lista por si se añadió una especie nueva
+    await cargarEspecies() 
   } catch (e) {
     mensaje.value = {
       tipo: 'error',
@@ -139,10 +127,10 @@ const borrar = async (id) => {
   if (!confirm('¿Borrar este animal? Se borrarán también sus imágenes.')) return
   await animalService.borrar(id)
   await cargar()
-  await cargarEspecies() // refrescamos especies por si borrar dejó alguna sin uso
+  await cargarEspecies() 
 }
 
-// Subir imagen extra a un animal ya existente (durante edición)
+
 const subirImagenExtra = async () => {
   if (!archivoNuevo.value || !form.value.id) {
     mensaje.value = { tipo: 'error', texto: 'Selecciona un archivo primero.' }
@@ -185,7 +173,7 @@ const borrarImagen = async (idImagen) => {
       {{ mensaje.texto }}
     </div>
 
-    <!-- Formulario alta/edición -->
+
     <div class="card my-4">
       <div class="card-header bg-success text-white">
         <i class="bi bi-plus-circle"></i>
@@ -198,7 +186,7 @@ const borrarImagen = async (idImagen) => {
             <input v-model="form.nombre" class="form-control" required />
           </div>
 
-          <!-- Campo especie con sugerencias dinámicas (datalist HTML5) -->
+
           <div class="col-md-4">
             <label class="form-label">Especie *</label>
             <input v-model="form.especie" class="form-control" required
@@ -244,7 +232,6 @@ const borrarImagen = async (idImagen) => {
             </select>
           </div>
 
-          <!-- Campo de subida de imagen -->
           <div class="col-md-8">
             <label class="form-label">
               <i class="bi bi-image"></i>
@@ -270,7 +257,6 @@ const borrarImagen = async (idImagen) => {
           </div>
         </form>
 
-        <!-- Galería de imágenes existentes (solo en modo edición) -->
         <div v-if="editando && imagenes.length > 0" class="mt-4">
           <h5><i class="bi bi-images"></i> Imágenes actuales</h5>
           <div class="galeria-imagenes">
@@ -290,7 +276,6 @@ const borrarImagen = async (idImagen) => {
       </div>
     </div>
 
-    <!-- Listado de animales -->
     <h3>Animales registrados</h3>
     <div v-if="cargando" class="text-center my-4">
       <div class="spinner-border text-success"></div>

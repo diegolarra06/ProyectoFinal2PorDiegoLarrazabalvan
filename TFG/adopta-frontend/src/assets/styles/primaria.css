@@ -1,6 +1,4 @@
-/* =============================================================
-   ESTILOS GENERALES
-   ============================================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,9 +7,8 @@
 
 html, body {
   width: 100%;
-  /* Cambiado a height 100% para asegurar el flujo completo */
   min-height: 100vh;
-  overflow-x: hidden; /* Evita scroll horizontal accidental */
+  overflow-x: hidden; 
 }
 
 body {
@@ -25,7 +22,7 @@ body {
 
 #app {
   width: 100%;
-  flex: 1; /* Empuja el footer hacia abajo si lo hay */
+  flex: 1; 
 }
 
 a {
@@ -34,11 +31,10 @@ a {
 }
 a:hover { text-decoration: underline; }
 
-/* ================= HERO (PANTALLA COMPLETA) ================= */
 .hero {
   position: relative;
   width: 100%;
-  height: 80vh; /* Aumentado para un look más impactante */
+  height: 80vh; 
   min-height: 500px;
   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
               url('/img/Portada.jpeg') no-repeat center/cover;
@@ -50,7 +46,7 @@ a:hover { text-decoration: underline; }
 
 .hero-content {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.6); /* Un poco más oscuro para legibilidad */
+  background-color: rgba(0, 0, 0, 0.6); 
   padding: 40px 60px;
   border-radius: var(--radius);
   animation: fadeIn 1.5s ease-in-out;
@@ -58,7 +54,7 @@ a:hover { text-decoration: underline; }
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem); /* Tamaño fluido según pantalla */
+  font-size: clamp(2.5rem, 5vw, 4rem); 
   margin-bottom: 15px;
   line-height: 1.1;
 }
@@ -68,13 +64,13 @@ a:hover { text-decoration: underline; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= LAYOUT FULL WIDTH ================= */
+
 .contenedor {
   display: flex;
-  margin: 0 auto; /* Centrado sin margen superior exagerado */
+  margin: 0 auto; 
   gap: 20px;
-  padding: 40px 2%; /* Padding lateral en % para ajustarse a la pantalla */
-  max-width: 100%;   /* Ahora ocupa todo el ancho */
+  padding: 40px 2%; 
+  max-width: 100%;   
   width: 100%;
 }
 
@@ -94,7 +90,6 @@ a:hover { text-decoration: underline; }
   font-size: 2rem;
 }
 
-/* ================= BOTONES ================= */
 .btn-primario {
   background-color: var(--color-primario);
   color: white;
@@ -114,11 +109,11 @@ a:hover { text-decoration: underline; }
 
 .btn-primario:hover {
   background-color: var(--color-primario-oscuro);
-  transform: translateY(-2px); /* Efecto sutil de levante */
+  transform: translateY(-2px); 
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* ================= MENSAJES ================= */
+
 .mensaje-ok, .mensaje-error {
   padding: 15px 20px;
   border-radius: var(--radius);
@@ -138,7 +133,6 @@ a:hover { text-decoration: underline; }
   border-left: 5px solid var(--color-error);
 }
 
-/* ================= RESPONSIVE ACTIVO ================= */
 @media (max-width: 1024px) {
   .contenedor {
     flex-direction: column;

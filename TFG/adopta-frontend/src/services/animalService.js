@@ -1,6 +1,4 @@
-// =============================================================
-// SERVICIO DE ANIMALES (REST + multipart para imágenes)
-// =============================================================
+
 import api from './api'
 
 export const animalService = {
@@ -33,7 +31,6 @@ export const animalService = {
     return api.delete(`/api/animales/${id}`)
   },
 
-  // ---------- IMÁGENES (PDF 6.2) ----------
 
   async listarImagenes(idAnimal) {
     return api.get(`/api/animales/${idAnimal}/imagenes`)

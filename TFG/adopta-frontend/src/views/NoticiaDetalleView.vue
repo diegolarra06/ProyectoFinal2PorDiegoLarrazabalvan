@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  FICHA INDIVIDUAL DE UNA NOTICIA (a pantalla completa)
-  ===========================================================
--->
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -30,7 +25,6 @@ const cargar = async (id) => {
 
 onMounted(() => cargar(route.params.id))
 
-// Watcher por si navegamos a otra noticia desde la misma vista
 watch(() => route.params.id, (nuevoId) => {
   if (nuevoId) cargar(nuevoId)
 })
@@ -60,9 +54,8 @@ const formatoFecha = (fecha) => {
   </div>
 
   <article v-else-if="noticia" class="noticia-detalle">
-    <!-- Cabecera con imagen -->
-    <header class="noticia-hero"
-            :style="{ backgroundImage: `url(${urlImagen(noticia.imagen)})` }">
+
+    <header class="noticia-hero" :style="{ backgroundImage: `url(${urlImagen(noticia.imagen)})` }">
       <div class="noticia-hero-overlay">
         <div class="container">
           <RouterLink to="/noticias" class="btn-volver">
@@ -82,7 +75,6 @@ const formatoFecha = (fecha) => {
       </div>
     </header>
 
-    <!-- Contenido -->
     <div class="container my-5">
       <div class="contenido-noticia">
         <p v-for="(parrafo, i) in noticia.contenido.split('\n')" :key="i">
@@ -112,44 +104,53 @@ const formatoFecha = (fecha) => {
   background-position: center;
   position: relative;
 }
+
 .noticia-hero-overlay {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 100%);
   height: 100%;
   display: flex;
   align-items: flex-end;
   padding-bottom: 40px;
   color: white;
 }
+
 .btn-volver {
   display: inline-block;
   color: white;
   margin-bottom: 20px;
   padding: 6px 15px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
 }
+
 .btn-volver:hover {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.35);
   color: white;
   text-decoration: none;
 }
+
 .noticia-hero h1 {
   font-size: 3rem;
   margin-bottom: 10px;
 }
+
 .subtitulo {
   font-size: 1.3rem;
   font-style: italic;
   opacity: 0.95;
   margin-bottom: 15px;
 }
+
 .meta {
   display: flex;
   gap: 25px;
   font-size: 0.95rem;
   opacity: 0.9;
 }
-.meta i { margin-right: 5px; }
+
+.meta i {
+  margin-right: 5px;
+}
 
 .contenido-noticia {
   max-width: 800px;
@@ -157,12 +158,18 @@ const formatoFecha = (fecha) => {
   font-size: 1.1rem;
   line-height: 1.8;
 }
+
 .contenido-noticia p {
   margin-bottom: 1.2rem;
 }
 
 @media (max-width: 768px) {
-  .noticia-hero h1 { font-size: 2rem; }
-  .noticia-hero { height: 50vh; }
+  .noticia-hero h1 {
+    font-size: 2rem;
+  }
+
+  .noticia-hero {
+    height: 50vh;
+  }
 }
 </style>

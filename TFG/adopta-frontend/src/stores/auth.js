@@ -1,14 +1,8 @@
-// =============================================================
-// STORE DE AUTENTICACIÓN (sin Pinia, simple con reactive)
-// Tema 8 PDF - reactive()
-// Mantiene en memoria el usuario logueado y su rol.
-// Se persiste en localStorage para no perderlo al refrescar.
-// =============================================================
+
 import { reactive, readonly } from 'vue'
 
 const STORAGE_KEY = 'adopta-auth'
 
-// Estado inicial: leemos de localStorage si existe
 const guardado = localStorage.getItem(STORAGE_KEY)
 const estadoInicial = guardado
   ? JSON.parse(guardado)
@@ -21,10 +15,9 @@ const persistir = () => {
 }
 
 export const authStore = {
-  // Estado de solo lectura desde fuera
+
   state: readonly(state),
 
-  // Marca como logueado
   login(email, rol) {
     state.autenticado = true
     state.email = email
@@ -32,7 +25,7 @@ export const authStore = {
     persistir()
   },
 
-  // Cierra la sesión
+
   logout() {
     state.autenticado = false
     state.email = null
@@ -40,7 +33,6 @@ export const authStore = {
     persistir()
   },
 
-  // Helpers para comprobar el rol
   esAdmin() {
     return state.rol === 'ADMIN'
   },

@@ -3,11 +3,6 @@ package com.daw.adoptauncompanero.entities;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD FAVORITO (2.2.3.3 - Guardar como favorito)
-// Permite al cliente registrado marcar animales como favoritos
-// (2.3.2.4) y consultarlos desde su área personal (2.3.3.1).
-// =============================================================
 @Entity
 @Table(name = "favoritos")
 public class FavoritoEntity {

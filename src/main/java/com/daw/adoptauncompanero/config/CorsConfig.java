@@ -4,13 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-// =============================================================
-// CONFIGURACIÓN CORS
-// Permite que el frontend Vue (puerto 5173) pueda hacer
-// peticiones al backend Spring Boot (puerto 8080) sin que el
-// navegador las bloquee por la política Same-Origin.
-// =============================================================
-
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

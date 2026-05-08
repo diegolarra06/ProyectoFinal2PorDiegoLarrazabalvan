@@ -1,8 +1,4 @@
-<!--
-  ===========================================================
-  PIE DE PÁGINA / CONTACTO
-  ===========================================================
--->
+
 <script setup></script>
 
 <template>
@@ -11,7 +7,7 @@
       <i class="bi bi-envelope"></i>
       <a href="mailto:contacto@adoptauncompanero.com">contacto@adoptauncompanero.com</a>
       <span class="sep">|</span>
-      <i class="bi bi-telephone"></i> 923 26 79 61
+      <i class="bi bi-telephone"></i> 923 33 69 12
       <span class="sep">|</span>
       © {{ new Date().getFullYear() }} AdoptaUnCompañero — TFG DAW Calasanz Salamanca
     </p>

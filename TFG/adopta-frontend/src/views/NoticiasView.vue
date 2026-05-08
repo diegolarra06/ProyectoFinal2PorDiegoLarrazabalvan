@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  LISTADO COMPLETO DE NOTICIAS
-  ===========================================================
--->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -51,16 +46,15 @@ const formatoFecha = (fecha) => {
     </div>
 
     <div v-else class="row">
-      <div v-for="n in noticias" :key="n.idNoticia"
-           class="col-md-6 col-lg-4 mb-4">
+      <div v-for="n in noticias" :key="n.idNoticia" class="col-md-6 col-lg-4 mb-4">
         <div class="card h-100 noticia-card" @click="verNoticia(n.idNoticia)">
           <img :src="urlImagen(n.imagen)" class="card-img-top" :alt="n.titulo" />
           <div class="card-body d-flex flex-column">
             <h5 class="card-title text-success">{{ n.titulo }}</h5>
             <p v-if="n.subtitulo" class="text-muted small">{{ n.subtitulo }}</p>
             <p class="card-text">{{ n.contenido.length > 120
-                                    ? n.contenido.slice(0, 120) + '…'
-                                    : n.contenido }}</p>
+              ? n.contenido.slice(0, 120) + '…'
+              : n.contenido }}</p>
             <div class="mt-auto d-flex justify-content-between align-items-center">
               <small class="text-muted">{{ formatoFecha(n.fechaPublicacion) }}</small>
               <span class="text-success">
@@ -79,12 +73,14 @@ const formatoFecha = (fecha) => {
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .noticia-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
+
 .noticia-card img {
   height: 200px;
   object-fit: cover;

@@ -3,12 +3,7 @@ package com.daw.adoptauncompanero.entities;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD HISTORIAL DE ESTADOS (2.2.5 - Lógica de negocio)
-// Cada vez que el admin cambia el estado de una solicitud (2.2.4.3),
-// se crea automáticamente un registro de historial. Esto permite
-// trazar todo el proceso de la adopción (2.4.8).
-// =============================================================
+
 @Entity
 @Table(name = "historial_estados_solicitud")
 public class HistorialEstadoSolicitudEntity {

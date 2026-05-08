@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  MIS SOLICITUDES (descripción 2.2.3.5 / 2.3.3.4)
-  ===========================================================
--->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -38,7 +33,6 @@ const cancelar = async (idSolicitud) => {
 }
 
 const verHistorial = (idSolicitud) => {
-  // Podrías abrir un modal o ir a /solicitudes/historial/:id
   router.push(`/solicitudes/historial/${idSolicitud}`)
 }
 </script>
@@ -53,10 +47,7 @@ const verHistorial = (idSolicitud) => {
       <div class="spinner-border text-success"></div>
     </div>
 
-    <TablaSolicitudes v-else
-                      :solicitudes="solicitudes"
-                      :modo-admin="false"
-                      @cancelar="cancelar"
-                      @ver-historial="verHistorial" />
+    <TablaSolicitudes v-else :solicitudes="solicitudes" :modo-admin="false" @cancelar="cancelar"
+      @ver-historial="verHistorial" />
   </div>
 </template>

@@ -9,19 +9,16 @@ import com.daw.adoptauncompanero.entities.NoticiaEntity;
 
 public interface NoticiaService {
 
-    // Lectura
     List<NoticiaDTO> listarPublicadas();
     List<NoticiaDTO> listarTodas();
     List<NoticiaDTO> listarDestacadas(int cantidad);
     NoticiaEntity obtenerPorId(Integer idNoticia);
 
-    // Escritura (admin)
     Integer crearNoticia(String titulo, String subtitulo, String contenido,
                          String autor, Boolean publicada);
     Integer actualizarNoticia(Integer idNoticia, String titulo, String subtitulo,
                               String contenido, String autor, Boolean publicada);
     Integer borrarNoticia(Integer idNoticia);
 
-    // Imagen
     Integer subirImagenNoticia(Integer idNoticia, MultipartFile archivo);
 }

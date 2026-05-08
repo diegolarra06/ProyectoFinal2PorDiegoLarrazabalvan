@@ -14,11 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-// =============================================================
-// PDF 5 - 2.5. Configuración de Spring Security
-// Adaptado para SPA Vue: el login devuelve 200 OK (no redirige)
-// y el access denied devuelve 401/403 (no redirige a HTML).
-// =============================================================
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -51,28 +47,26 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
-            		// Noticias: GET público (todos pueden leer noticias)
+            		
             		.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/noticias/**").permitAll()
-            		// Noticias: modificaciones solo admin
             		.requestMatchers(org.springframework.http.HttpMethod.POST,   "/api/noticias/**").hasAuthority("ADMIN")
             		.requestMatchers(org.springframework.http.HttpMethod.PUT,    "/api/noticias/**").hasAuthority("ADMIN")
             		.requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/noticias/**").hasAuthority("ADMIN")
 
-                // ---------- URLs públicas ----------
-            		// ---------- Lectura pública (cualquier usuario, incluso sin login) ----------
+               
             		.requestMatchers(
             		        "/", "/home", "/login", "/registro", "/accesoDenegado",
             		        "/css/**", "/js/**", "/img/**", "/uploads/**",
             		        "/api/me", "/api/registro"
             		).permitAll()
-            		// Animales: solo permitimos GET sin autenticación (consultar catálogo y ficha)
+            	
             		.requestMatchers(org.springframework.http.HttpMethod.GET, "/api/animales/**").permitAll()
-            		// Animales: las modificaciones (POST, PUT, DELETE) requieren rol ADMIN
+ 
             		.requestMatchers(org.springframework.http.HttpMethod.POST,   "/api/animales/**").hasAuthority("ADMIN")
             		.requestMatchers(org.springframework.http.HttpMethod.PUT,    "/api/animales/**").hasAuthority("ADMIN")
             		.requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/animales/**").hasAuthority("ADMIN")
 
-                // ---------- Zona ADMIN ----------
+
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/animales/insertar/**", "/animales/actualizar/**",
                                   "/animales/borrar/**", "/animales/imagenes/**").hasAuthority("ADMIN")
@@ -81,11 +75,7 @@ public class SecurityConfig {
                 .requestMatchers("/estadisticas/**").hasAuthority("ADMIN")
                 .requestMatchers("/solicitudes/cambiarEstado/**",
                                  "/solicitudes/listadoAdmin/**").hasAuthority("ADMIN")
-
-                // ---------- Endpoints REST autenticados ----------
                 .requestMatchers("/api/**").authenticated()
-
-                // ---------- Zona CLIENTE registrado ----------
                 .requestMatchers("/area-personal/**").hasAnyAuthority("CLIENTE", "ADMIN")
                 .requestMatchers("/favoritos/**").hasAnyAuthority("CLIENTE", "ADMIN")
                 .requestMatchers("/solicitudes/iniciar/**",
@@ -94,18 +84,18 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()
             )
-            // Login configurado para SPA: devuelve 200 OK (no redirige a HTML)
+
             .formLogin(form -> form
                 .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                // Si login OK → 200 OK (sin redirect)
+               
                 .successHandler((req, resp, auth) -> {
                     resp.setStatus(HttpStatus.OK.value());
                     resp.setContentType("application/json");
                     resp.getWriter().write("{\"ok\":true}");
                 })
-                // Si login KO → 401 Unauthorized
+             
                 .failureHandler((req, resp, ex) -> {
                     resp.setStatus(HttpStatus.UNAUTHORIZED.value());
                     resp.setContentType("application/json");
@@ -113,7 +103,7 @@ public class SecurityConfig {
                 })
                 .permitAll()
             )
-            // Logout SPA: devuelve 200 OK (sin redirect)
+         
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessHandler((req, resp, auth) -> {
@@ -123,7 +113,7 @@ public class SecurityConfig {
                 })
                 .permitAll()
             )
-            // Si una petición REST no está autenticada → 401 (sin redirect a HTML)
+           
             .exceptionHandling(ex -> ex
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             );

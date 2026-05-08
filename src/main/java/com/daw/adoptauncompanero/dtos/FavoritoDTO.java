@@ -1,6 +1,6 @@
 package com.daw.adoptauncompanero.dtos;
 
-//DTO Favorito (2.2.3.3 - área personal del cliente)
+
 public class FavoritoDTO {
 
 	private Integer idAnimal;

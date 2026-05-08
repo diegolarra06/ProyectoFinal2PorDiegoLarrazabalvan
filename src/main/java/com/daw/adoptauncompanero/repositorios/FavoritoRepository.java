@@ -10,10 +10,7 @@ import com.daw.adoptauncompanero.dtos.FavoritoDTO;
 import com.daw.adoptauncompanero.entities.FavoritoEntity;
 import com.daw.adoptauncompanero.entities.FavoritoId;
 
-// =============================================================
-// REPOSITORIO FAVORITOS (2.2.3.3 / 2.3.3.1)
-// Cliente registrado: marcar y consultar animales favoritos
-// =============================================================
+
 public interface FavoritoRepository extends JpaRepository<FavoritoEntity, FavoritoId> {
 
     @Query("""

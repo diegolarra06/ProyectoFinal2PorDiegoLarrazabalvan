@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import {authStore} from '../stores/auth.js'
 
 const routes = [
-  // ---------- PÚBLICAS (cliente no registrado, descripción 2.2.1) ----------
+
   { path: '/',         name: 'Home',        component: () => import('@/views/HomeView.vue') },
   { path: '/login',    name: 'Login',       component: () => import('@/views/LoginView.vue') },
   { path: '/registro', name: 'Registro',    component: () => import('@/views/RegistroView.vue') },
@@ -10,7 +10,7 @@ const routes = [
   { path: '/animal/:id', name: 'FichaAnimal', component: () => import('@/views/FichaAnimalView.vue'), props: true },
   { path: '/noticias', name: 'Noticias',    component: () => import('@/views/NoticiasView.vue') },
 
-  // ---------- ZONA CLIENTE REGISTRADO (2.2.3) ----------
+
    {
   path: '/noticias/:id',
   name: 'NoticiaDetalle',
@@ -43,7 +43,7 @@ const routes = [
     meta: { requiereAuth: true }
   },
 
-  // ---------- ZONA ADMIN (2.2.4) ----------
+
   {
     path: '/admin',
     name: 'PanelAdmin',
@@ -93,10 +93,6 @@ const router = createRouter({
   routes
 })
 
-// ---------- GUARDA GLOBAL (Tema 10 PDF - 6.1 beforeEach) ----------
-// Antes de cada navegación comprobamos:
-// - Si la ruta requiere autenticación, que haya sesión
-// - Si requiere rol ADMIN, que el usuario sea admin
 router.beforeEach((to, from) => {
   if (to.meta.requiereAuth && !authStore.state.autenticado) {
     return { name: 'Login', query: { redirect: to.fullPath } }

@@ -11,19 +11,8 @@ import org.springframework.data.repository.query.Param;
 import com.daw.adoptauncompanero.dtos.AnimalDTO;
 import com.daw.adoptauncompanero.entities.AnimalEntity;
 
-// =============================================================
-// REPOSITORIO ANIMALES
-// Cubre:
-//  - 2.3.1 Catálogo con filtros (especie, edad, tamaño, estado, nombre)
-//  - 2.2.4.1 Gestión de animales (CRUD admin)
-//  - PDF 6.3 Paginación (versión REST del listado)
-// =============================================================
 public interface AnimalRepository extends JpaRepository<AnimalEntity, Integer> {
 
-	// -----------------------------------------------------------
-	// BÚSQUEDA POR FILTROS (2.3.1.5 a 2.3.1.9)
-	// Proyección directa sobre AnimalDTO con la primera imagen
-	// -----------------------------------------------------------
 	@Query("""
 			    SELECT new com.daw.adoptauncompanero.dtos.AnimalDTO(
 			        a.idAnimal, a.nombre, a.especie, a.edad, a.tamano,
@@ -45,10 +34,6 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Integer> {
 			@Param("especie") String especie, @Param("edadMin") Integer edadMin, @Param("edadMax") Integer edadMax,
 			@Param("tamano") String tamano, @Param("estado") String estado);
 
-	// -----------------------------------------------------------
-	// LISTADO PAGINADO (PDF 6.3 - Paginación)
-	// Para el endpoint REST /v1/animalesPaginacion
-	// -----------------------------------------------------------
 	@Query("""
 			    SELECT new com.daw.adoptauncompanero.dtos.AnimalDTO(
 			        a.idAnimal, a.nombre, a.especie, a.edad, a.tamano,
@@ -60,19 +45,14 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Integer> {
 			""")
 	Page<AnimalDTO> obtenerAnimalesPaginados(Pageable pageable);
 
-	// -----------------------------------------------------------
-	// SOLO ANIMALES DISPONIBLES (2.3.1 catálogo público / home)
-	// -----------------------------------------------------------
 	@Query("""
 			    SELECT a FROM AnimalEntity a
 			    WHERE a.estado = com.daw.adoptauncompanero.entities.AnimalEntity.EstadoAnimal.DISPONIBLE
 			    ORDER BY a.fechaAlta DESC
 			""")
 	List<AnimalEntity> listarDisponibles();
-	
-	// Devuelve las especies distintas que existen actualmente en la BBDD
-    @Query("SELECT DISTINCT a.especie FROM AnimalEntity a "
-         + "WHERE a.especie IS NOT NULL AND a.especie <> '' "
-         + "ORDER BY a.especie ASC")
-    List<String> listarEspeciesDistintas();
+
+	@Query("SELECT DISTINCT a.especie FROM AnimalEntity a " + "WHERE a.especie IS NOT NULL AND a.especie <> '' "
+			+ "ORDER BY a.especie ASC")
+	List<String> listarEspeciesDistintas();
 }

@@ -3,11 +3,7 @@ package com.daw.adoptauncompanero.entities;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
-// =============================================================
-// ENTIDAD NOTIFICACIÓN (2.2.5 - Envío automático de emails)
-// Cada notificación queda registrada en BBDD antes y después de
-// enviarse. Se enlaza con EmailService (PDF 6.4).
-// =============================================================
+
 @Entity
 @Table(name = "notificaciones")
 public class NotificacionEntity {

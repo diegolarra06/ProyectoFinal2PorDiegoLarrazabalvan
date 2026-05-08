@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.daw.adoptauncompanero.servicio.interfaces.EstadisticasService;
 
-// =============================================================
-// CONTROLADOR ESTADÍSTICAS (2.2.4.7 - Panel admin)
-// =============================================================
 @Controller
 @RequestMapping("/estadisticas")
 public class EstadisticasController {

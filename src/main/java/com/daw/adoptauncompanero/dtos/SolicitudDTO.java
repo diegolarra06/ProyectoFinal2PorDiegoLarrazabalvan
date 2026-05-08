@@ -2,13 +2,6 @@ package com.daw.adoptauncompanero.dtos;
 
 import java.time.LocalDateTime;
 
-//=============================================================
-//DTO SOLICITUD - usado en:
-//- 2.3.3.4 historial de solicitudes del cliente
-//- 2.3.5  panel de admin para gestión
-//Lleva los nombres ya cargados de usuario, animal y estado para
-//no tener que hacer joins extra desde Thymeleaf.
-//=============================================================
 public class SolicitudDTO {
 
 	private Integer idSolicitud;

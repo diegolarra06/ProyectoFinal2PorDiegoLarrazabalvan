@@ -14,38 +14,37 @@ import com.daw.adoptauncompanero.entities.UsuarioEntity;
 import com.daw.adoptauncompanero.servicio.interfaces.FavoritoService;
 import com.daw.adoptauncompanero.servicio.interfaces.UsuarioService;
 
-// =============================================================
-// CONTROLADOR FAVORITOS (2.2.3.3 / 2.3.3.1)
-// =============================================================
 @Controller
 @RequestMapping("/favoritos")
 public class FavoritosController {
 
-    @Autowired private FavoritoService favoritoService;
-    @Autowired private UsuarioService usuarioService;
+	@Autowired
+	private FavoritoService favoritoService;
+	@Autowired
+	private UsuarioService usuarioService;
 
-    @GetMapping("/listado")
-    public String listado(Principal principal, Model model) {
-        UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
-        model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
-        return "favoritos/listado";
-    }
+	@GetMapping("/listado")
+	public String listado(Principal principal, Model model) {
+		UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
+		model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
+		return "favoritos/listado";
+	}
 
-    @PostMapping("/agregar")
-    public String agregar(@RequestParam Integer idAnimal, Principal principal, Model model) {
-        UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
-        Integer res = favoritoService.agregarFavorito(u.getIdUsuario(), idAnimal);
-        model.addAttribute("resultado", res);
-        model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
-        return "favoritos/listado";
-    }
+	@PostMapping("/agregar")
+	public String agregar(@RequestParam Integer idAnimal, Principal principal, Model model) {
+		UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
+		Integer res = favoritoService.agregarFavorito(u.getIdUsuario(), idAnimal);
+		model.addAttribute("resultado", res);
+		model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
+		return "favoritos/listado";
+	}
 
-    @PostMapping("/quitar")
-    public String quitar(@RequestParam Integer idAnimal, Principal principal, Model model) {
-        UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
-        Integer res = favoritoService.quitarFavorito(u.getIdUsuario(), idAnimal);
-        model.addAttribute("resultado", res);
-        model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
-        return "favoritos/listado";
-    }
+	@PostMapping("/quitar")
+	public String quitar(@RequestParam Integer idAnimal, Principal principal, Model model) {
+		UsuarioEntity u = usuarioService.obtenerPorEmail(principal.getName());
+		Integer res = favoritoService.quitarFavorito(u.getIdUsuario(), idAnimal);
+		model.addAttribute("resultado", res);
+		model.addAttribute("lista", favoritoService.listarFavoritosPorUsuario(u.getIdUsuario()));
+		return "favoritos/listado";
+	}
 }

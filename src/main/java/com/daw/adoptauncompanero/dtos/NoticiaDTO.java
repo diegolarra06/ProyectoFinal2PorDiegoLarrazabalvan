@@ -2,7 +2,7 @@ package com.daw.adoptauncompanero.dtos;
 
 import java.time.LocalDateTime;
 
-// DTO para devolver noticias al frontend (sin contenido si no hace falta)
+
 public class NoticiaDTO {
 
 	private Integer idNoticia;

@@ -1,9 +1,3 @@
-<!--
-  ===========================================================
-  PÁGINA DE INICIO
-  Hero + carrusel de noticias destacadas + animales destacados
-  ===========================================================
--->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -37,13 +31,12 @@ onMounted(async () => {
 const verFicha = (id) => router.push(`/animal/${id}`)
 const verNoticia = (id) => router.push(`/noticias/${id}`)
 
-// URL de imagen de noticia con fallback
 const urlImagenNoticia = (imagen) => {
   if (imagen) return `http://localhost:8080/uploads/${imagen}`
   return '/img/Portada.jpeg'
 }
 
-// Recorte de texto largo
+
 const recortar = (texto, max = 120) => {
   if (!texto) return ''
   return texto.length > max ? texto.slice(0, max) + '…' : texto
@@ -51,7 +44,7 @@ const recortar = (texto, max = 120) => {
 </script>
 
 <template>
-  <!-- Hero -->
+
   <section class="hero">
     <div class="hero-content">
       <h1>Adopta Un Compañero</h1>
@@ -64,29 +57,23 @@ const recortar = (texto, max = 120) => {
 
   <div class="container my-5">
 
-    <!-- ====================== CARRUSEL DE NOTICIAS ====================== -->
     <section v-if="noticiasDestacadas.length > 0" class="seccion-noticias">
       <h2 class="text-center text-success mb-4">
         <i class="bi bi-newspaper"></i> Últimas noticias
       </h2>
 
       <div id="carruselNoticias" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicadores (puntitos) -->
+
         <div class="carousel-indicators">
-          <button v-for="(n, i) in noticiasDestacadas" :key="`ind-${n.idNoticia}`"
-                  type="button"
-                  data-bs-target="#carruselNoticias"
-                  :data-bs-slide-to="i"
-                  :class="{ active: i === 0 }"
-                  :aria-label="`Slide ${i + 1}`"></button>
+          <button v-for="(n, i) in noticiasDestacadas" :key="`ind-${n.idNoticia}`" type="button"
+            data-bs-target="#carruselNoticias" :data-bs-slide-to="i" :class="{ active: i === 0 }"
+            :aria-label="`Slide ${i + 1}`"></button>
         </div>
 
-        <!-- Slides -->
         <div class="carousel-inner rounded-4 shadow">
-          <div v-for="(n, i) in noticiasDestacadas" :key="n.idNoticia"
-               class="carousel-item" :class="{ active: i === 0 }">
-            <div class="slide-noticia"
-                 :style="{ backgroundImage: `url(${urlImagenNoticia(n.imagen)})` }">
+          <div v-for="(n, i) in noticiasDestacadas" :key="n.idNoticia" class="carousel-item"
+            :class="{ active: i === 0 }">
+            <div class="slide-noticia" :style="{ backgroundImage: `url(${urlImagenNoticia(n.imagen)})` }">
               <div class="slide-overlay">
                 <h3>{{ n.titulo }}</h3>
                 <p v-if="n.subtitulo" class="subtitulo">{{ n.subtitulo }}</p>
@@ -99,14 +86,11 @@ const recortar = (texto, max = 120) => {
           </div>
         </div>
 
-        <!-- Botones de navegación -->
-        <button class="carousel-control-prev" type="button"
-                data-bs-target="#carruselNoticias" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselNoticias" data-bs-slide="prev">
           <span class="carousel-control-prev-icon"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next" type="button"
-                data-bs-target="#carruselNoticias" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselNoticias" data-bs-slide="next">
           <span class="carousel-control-next-icon"></span>
           <span class="visually-hidden">Siguiente</span>
         </button>
@@ -119,7 +103,6 @@ const recortar = (texto, max = 120) => {
       </div>
     </section>
 
-    <!-- ====================== INFO ADOPCIÓN ====================== -->
     <section class="my-5">
       <h2 class="text-center text-success">¡Adopta y cambia una vida!</h2>
       <p class="lead text-center">
@@ -157,10 +140,7 @@ const recortar = (texto, max = 120) => {
       <div v-else-if="error" class="mensaje-error">{{ error }}</div>
 
       <div v-else class="grid-animales">
-        <TarjetaAnimal v-for="a in animalesDestacados"
-                       :key="a.idAnimal"
-                       :animal="a"
-                       @ver-ficha="verFicha" />
+        <TarjetaAnimal v-for="a in animalesDestacados" :key="a.idAnimal" :animal="a" @ver-ficha="verFicha" />
       </div>
 
       <div class="text-center mt-4">
@@ -174,9 +154,13 @@ const recortar = (texto, max = 120) => {
 </template>
 
 <style scoped>
-.seccion-noticias { margin: 30px 0; }
+.seccion-noticias {
+  margin: 30px 0;
+}
 
-.carousel-inner { overflow: hidden; }
+.carousel-inner {
+  overflow: hidden;
+}
 
 .slide-noticia {
   height: 450px;
@@ -186,22 +170,26 @@ const recortar = (texto, max = 120) => {
   display: flex;
   align-items: flex-end;
 }
+
 .slide-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2));
   color: white;
   padding: 40px;
   width: 100%;
 }
+
 .slide-overlay h3 {
   font-size: 2.2rem;
   margin-bottom: 10px;
 }
+
 .slide-overlay .subtitulo {
   font-size: 1.2rem;
   opacity: 0.9;
   margin-bottom: 8px;
   font-style: italic;
 }
+
 .slide-overlay p {
   margin-bottom: 15px;
   max-width: 800px;
@@ -215,8 +203,16 @@ const recortar = (texto, max = 120) => {
 }
 
 @media (max-width: 768px) {
-  .slide-noticia { height: 350px; }
-  .slide-overlay h3 { font-size: 1.5rem; }
-  .slide-overlay { padding: 20px; }
+  .slide-noticia {
+    height: 350px;
+  }
+
+  .slide-overlay h3 {
+    font-size: 1.5rem;
+  }
+
+  .slide-overlay {
+    padding: 20px;
+  }
 }
 </style>

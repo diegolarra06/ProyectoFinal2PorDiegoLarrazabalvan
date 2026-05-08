@@ -11,11 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//=============================================================
-//ENTIDAD ROL (PDF 5 - Seguridad y Roles)
-//Mapea la tabla 'roles' que define los roles del sistema:
-//CLIENTE (cliente registrado, 2.2.3) y ADMIN (administrador, 2.2.4)
-//=============================================================
+
 @Entity
 @Table(name = "roles")
 public class RolEntity {
@@ -28,8 +24,6 @@ public class RolEntity {
 	@Column(name = "nombre", unique = true, nullable = false)
 	private String nombre;
 
-	// Relación inversa: muchos usuarios pueden tener este rol
-	// Se configura mediante la tabla intermedia usuario_roles
 	@OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
 	private Set<UsuarioRolEntity> usuarioRoles;
 

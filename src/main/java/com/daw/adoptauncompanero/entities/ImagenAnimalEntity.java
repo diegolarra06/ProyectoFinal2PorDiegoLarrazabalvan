@@ -2,13 +2,7 @@ package com.daw.adoptauncompanero.entities;
 
 import jakarta.persistence.*;
 
-//=============================================================
-//ENTIDAD IMAGEN ANIMAL (PDF 6.2 - Almacenamiento de archivos)
-//Cada animal puede tener varias imágenes (2.3.2.1).
-//La url_imagen es el nombre único (UUID) generado por
-//FileStorageService. Las imágenes se sirven desde /uploads/**
-//gracias a la configuración de WebConfig.
-//=============================================================
+
 @Entity
 @Table(name = "imagenes_animales")
 public class ImagenAnimalEntity {

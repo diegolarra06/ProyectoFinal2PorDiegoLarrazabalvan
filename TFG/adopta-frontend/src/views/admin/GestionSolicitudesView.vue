@@ -1,8 +1,4 @@
-<!--
-  ===========================================================
-  GESTIÓN DE SOLICITUDES (descripción 2.2.4.2 / 2.2.4.3)
-  ===========================================================
--->
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import TablaSolicitudes from '@/components/TablaSolicitudes.vue'
@@ -55,7 +51,7 @@ const confirmarCambio = async () => {
 }
 
 const verHistorial = (id) => {
-  // En una versión real abrirías un modal con el historial
+
   alert('Historial de la solicitud ' + id)
 }
 </script>
@@ -76,7 +72,7 @@ const verHistorial = (id) => {
                       @cambiar-estado="abrirModalCambioEstado"
                       @ver-historial="verHistorial" />
 
-    <!-- Modal cambio de estado -->
+
     <div v-if="mostrarModal" class="modal-overlay" @click.self="mostrarModal = false">
       <div class="modal-card">
         <h3>Cambiar estado de la solicitud #{{ solicitudSeleccionada.idSolicitud }}</h3>

@@ -16,47 +16,49 @@ import com.daw.adoptauncompanero.repositorios.FavoritoRepository;
 import com.daw.adoptauncompanero.repositorios.UsuarioRepository;
 import com.daw.adoptauncompanero.servicio.interfaces.FavoritoService;
 
-// =============================================================
-// SERVICIO FAVORITOS (2.2.3.3 / 2.3.3.1)
-// =============================================================
 @Service
 public class FavoritoServiceImpl implements FavoritoService {
 
-    @Autowired private FavoritoRepository favoritoRepository;
-    @Autowired private UsuarioRepository usuarioRepository;
-    @Autowired private AnimalRepository animalRepository;
+	@Autowired
+	private FavoritoRepository favoritoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private AnimalRepository animalRepository;
 
-    @Override
-    @Transactional
-    public Integer agregarFavorito(Integer idUsuario, Integer idAnimal) {
-        UsuarioEntity u = usuarioRepository.findById(idUsuario).orElse(null);
-        AnimalEntity a = animalRepository.findById(idAnimal).orElse(null);
-        if (u == null || a == null) return 0;
+	@Override
+	@Transactional
+	public Integer agregarFavorito(Integer idUsuario, Integer idAnimal) {
+		UsuarioEntity u = usuarioRepository.findById(idUsuario).orElse(null);
+		AnimalEntity a = animalRepository.findById(idAnimal).orElse(null);
+		if (u == null || a == null)
+			return 0;
 
-        // Si ya está marcado, no hacemos nada
-        if (favoritoRepository.contarFavorito(idUsuario, idAnimal) > 0) return 1;
+		if (favoritoRepository.contarFavorito(idUsuario, idAnimal) > 0)
+			return 1;
 
-        FavoritoEntity f = new FavoritoEntity(u, a);
-        favoritoRepository.save(f);
-        return 1;
-    }
+		FavoritoEntity f = new FavoritoEntity(u, a);
+		favoritoRepository.save(f);
+		return 1;
+	}
 
-    @Override
-    @Transactional
-    public Integer quitarFavorito(Integer idUsuario, Integer idAnimal) {
-        FavoritoId id = new FavoritoId(idUsuario, idAnimal);
-        if (!favoritoRepository.existsById(id)) return 0;
-        favoritoRepository.deleteById(id);
-        return 1;
-    }
+	@Override
+	@Transactional
+	public Integer quitarFavorito(Integer idUsuario, Integer idAnimal) {
+		FavoritoId id = new FavoritoId(idUsuario, idAnimal);
+		if (!favoritoRepository.existsById(id))
+			return 0;
+		favoritoRepository.deleteById(id);
+		return 1;
+	}
 
-    @Override
-    public List<FavoritoDTO> listarFavoritosPorUsuario(Integer idUsuario) {
-        return favoritoRepository.listarFavoritosPorUsuario(idUsuario);
-    }
+	@Override
+	public List<FavoritoDTO> listarFavoritosPorUsuario(Integer idUsuario) {
+		return favoritoRepository.listarFavoritosPorUsuario(idUsuario);
+	}
 
-    @Override
-    public Boolean esFavorito(Integer idUsuario, Integer idAnimal) {
-        return favoritoRepository.contarFavorito(idUsuario, idAnimal) > 0;
-    }
+	@Override
+	public Boolean esFavorito(Integer idUsuario, Integer idAnimal) {
+		return favoritoRepository.contarFavorito(idUsuario, idAnimal) > 0;
+	}
 }

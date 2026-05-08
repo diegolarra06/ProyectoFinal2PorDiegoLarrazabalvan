@@ -1,9 +1,4 @@
-<!--
-  ===========================================================
-  BARRA LATERAL DE PUBLICIDAD (reutilizable)
-  Tema 9 PDF - Componentes reutilizables
-  ===========================================================
--->
+
 <script setup>
 const anuncios = [
   { titulo: '¡Pelota!',           img: 'pelota.jpeg',  url: 'https://www.miscota.es/' },

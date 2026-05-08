@@ -1,8 +1,3 @@
-<!--
-  ===========================================================
-  REGISTRO DE NUEVO CLIENTE (descripción 2.2.1.5)
-  ===========================================================
--->
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -92,11 +87,24 @@ const registrar = async () => {
 </template>
 
 <style scoped>
-.registro-wrapper { display: flex; justify-content: center; padding: 30px; }
-.registro-card {
-  background: white; padding: 40px;
-  border-radius: var(--radius); box-shadow: var(--sombra-media);
-  width: 100%; max-width: 600px;
+.registro-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
 }
-.registro-card h2 { color: var(--color-primario); margin-bottom: 20px; text-align: center; }
+
+.registro-card {
+  background: white;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--sombra-media);
+  width: 100%;
+  max-width: 600px;
+}
+
+.registro-card h2 {
+  color: var(--color-primario);
+  margin-bottom: 20px;
+  text-align: center;
+}
 </style>
